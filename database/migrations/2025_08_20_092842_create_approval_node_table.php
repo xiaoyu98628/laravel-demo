@@ -15,14 +15,17 @@ return new class extends Migration
         Schema::create('approval_node', function (Blueprint $table) {
             $table->ulid('id')->primary()->comment('编号');
             $table->ulid('parent_id')->nullable()->comment('父级id');
-            $table->string('type')->default('approver')->comment('类型[condition:条件,approver:审核人,copy_people:抄送人]');
-            $table->smallInteger('step_number')->default(1)->comment('步骤编号');
+            $table->enum('type', ['condition', 'approval', 'cc'])->default('approval')->comment('类型[condition:条件节点,approval:审核节点,cc:抄送节点]');
+            $table->unsignedTinyInteger('step_order')->default(1)->comment('步骤');
             $table->string('step_name')->comment('步骤名称');
-            $table->string('status')->default('created')->comment('状态[approved:审批中,success:通过,rejected:驳回,cancelled:取消]');
-
+            $table->enum('method', ['all', 'any'])->comment('审批方式[all:会签,any:或签]');
+            $table->enum('status', ['process', 'approve', 'reject', 'skip', 'auto', 'cancel'])->comment('状态[process:审批中,approve:通过,reject:驳回,skip:跳过,auto:自动,cancel:取消]');
             $table->json('callback')->nullable()->comment('回调');
-            $table->uuid('approval_id')->comment('审批id');
-            MigrationHelper::createAndAdmin($table);
+            $table->ulid('approval_id')->comment('审批id');
+            $table->json('extend')->nullable()->comment('额外信息');
+            MigrationHelper::createTime($table);
+            $table->index('parent_id');
+            $table->index('approval_id');
             $table->comment('审批节点实例表');
         });
     }
