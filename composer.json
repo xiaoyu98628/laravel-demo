@@ -4,8 +4,15 @@
     "description": "The skeleton application for the Laravel framework.",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@gitee.com:buqiu-community/service-common.git"
+        }
+    ],
     "require": {
         "php": "^8.2",
+        "buqiu/service-common": "v1.2.0.x-dev",
         "laravel/framework": "^11.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9"

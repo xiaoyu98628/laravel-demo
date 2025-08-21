@@ -9,7 +9,7 @@ use Illuminate\Database\Schema\Blueprint;
 class MigrationHelper
 {
     /**
-     * @param Blueprint $table
+     * @param  Blueprint  $table
      * @return void
      */
     public static function createAndAdmin(Blueprint $table): void
@@ -23,7 +23,7 @@ class MigrationHelper
     }
 
     /**
-     * @param Blueprint $table
+     * @param  Blueprint  $table
      * @return void
      */
     public static function createTime(Blueprint $table): void

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Enums\ApprovalTemplate;
 
 use App\Enums\BaseEnumTrait;
@@ -8,7 +10,7 @@ enum Status: string
 {
     use BaseEnumTrait;
 
-    case ENABLE = 'enable';
+    case ENABLE  = 'enable';
     case DISABLE = 'disable';
 
     /**
@@ -18,7 +20,7 @@ enum Status: string
     public function label(): string
     {
         return match ($this) {
-            self::ENABLE => '启用',
+            self::ENABLE  => '启用',
             self::DISABLE => '禁用',
         };
     }

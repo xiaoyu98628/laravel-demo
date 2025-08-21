@@ -1,8 +1,13 @@
 <?php
 
-use Illuminate\Http\Request;
+declare(strict_types=1);
+
+use App\Http\Controllers\Admin\V1\ApprovalTemplateController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::group([
+    'prefix' => 'v1',
+    'as'     => 'api.',
+], function () {
+    Route::apiResource('approval-template', ApprovalTemplateController::class)->only(['index', 'store']);
+});

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e070f2986e123f6ec4923b4f95a9ea32",
+    "content-hash": "6c34c4192c5a8762a68026887132d530",
     "packages": [
         {
             "name": "brick/math",
@@ -65,6 +65,52 @@
                 }
             ],
             "time": "2025-02-28T13:11:00+00:00"
+        },
+        {
+            "name": "buqiu/service-common",
+            "version": "v1.2.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "git@gitee.com:buqiu-community/service-common.git",
+                "reference": "ead73f51abaff1be42b2d9319a0ada7a12b225ab"
+            },
+            "require": {
+                "ext-curl": "*",
+                "laravel/framework": "^10.0|^11.0|^12.0",
+                "php": ">=8.1.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.13",
+                "orchestra/testbench": "^10.2",
+                "phpunit/phpunit": "^11.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-v1.1.1": "dev-main"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Service\\Common\\": "src/"
+                },
+                "files": [
+                    "src/Library/Helpers.php"
+                ]
+            },
+            "authors": [
+                {
+                    "name": "zouxiang",
+                    "email": "zouxiang@helixlife.cn"
+                }
+            ],
+            "description": "common service",
+            "homepage": "https://gitee.com/buqiu/service-common",
+            "keywords": [
+                "common",
+                "service"
+            ],
+            "time": "2025-08-11T03:25:43+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -8620,7 +8666,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "buqiu/service-common": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
