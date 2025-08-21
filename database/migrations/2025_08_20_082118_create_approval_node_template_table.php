@@ -1,0 +1,37 @@
+<?php
+
+use App\Helpers\MigrationHelper;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('approval_node_template', function (Blueprint $table) {
+            $table->ulid('id')->primary()->comment('主键');
+            $table->ulid('parent_id')->nullable()->comment('父级编号');
+            $table->unsignedInteger('number')->default(1)->comment('步骤');
+            $table->string('name')->comment('名称');
+            $table->string('description')->nullable()->comment('描述');
+            $table->string('type')->default('approver')->comment('类型[condition:条件,approver:审核人,copy_people:抄送人]');
+            $table->json('rules')->nullable()->comment('审批规则');
+            $table->json('callback')->nullable()->comment('回调');
+            $table->ulid('template_id')->comment('模版id');
+            MigrationHelper::createAndAdmin($table);
+            $table->comment('审批节点模版表');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('approval_node_template');
+    }
+};
