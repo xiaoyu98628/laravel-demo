@@ -9,10 +9,10 @@ use App\Repositories\ApprovalNodeTemplateRepositories;
 use Illuminate\Support\Arr;
 use Service\Common\Base\BaseRepository;
 
-class ApprovalNodeTemplateService extends BaseRepository
+class ApprovalNodeTemplateService
 {
     public function __construct(
-        private readonly ApprovalNodeTemplateRepositories $repositories,
+        private ApprovalNodeTemplateRepositories $repositories,
     ) {}
 
     /**

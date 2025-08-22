@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Service\Common\Base\BaseCollection;
 use Service\Common\Library\Response\ApiResponse;
 
-readonly class ApprovalTemplateService
+class ApprovalTemplateService
 {
     public function __construct(
         private ApprovalTemplateRepositories $repositories,
