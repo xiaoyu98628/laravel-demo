@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Enums\Approval;
+namespace App\Constants\Enums\Approval;
 
-use App\Enums\BaseEnumTrait;
+use App\Constants\Enums\BaseEnumTrait;
 
 enum Status: string
 {

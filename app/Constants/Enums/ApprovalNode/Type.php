@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Enums\ApprovalNode;
+namespace App\Constants\Enums\ApprovalNode;
 
-use App\Enums\BaseEnumTrait;
+use App\Constants\Enums\BaseEnumTrait;
 
 enum Type: string
 {

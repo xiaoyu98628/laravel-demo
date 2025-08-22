@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Enums\ApprovalTemplate;
+namespace App\Constants\Enums\ApprovalTemplate;
 
-use App\Enums\BaseEnumTrait;
+use App\Constants\Enums\BaseEnumTrait;
 
 enum Status: string
 {

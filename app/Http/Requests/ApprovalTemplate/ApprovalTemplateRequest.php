@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\ApprovalTemplate;
 
-use App\Enums\ApprovalTemplate\FlowCode;
+use App\Constants\Enums\ApprovalTemplate\FlowCode;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Service\Common\Library\Rpc\Service\Http\HttpRequest;

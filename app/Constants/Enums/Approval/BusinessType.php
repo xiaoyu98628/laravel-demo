@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Enums\ApprovalNode;
+namespace App\Constants\Enums\Approval;
 
-use App\Enums\BaseEnumTrait;
+use App\Constants\Enums\BaseEnumTrait;
 
-enum Method: string
+enum BusinessType: string
 {
     use BaseEnumTrait;
 
-    case All = 'all';
-    case Any = 'any';
+    case ORDER = 'order';
 
     /**
      * 获取用户友好的标签
@@ -18,8 +17,7 @@ enum Method: string
     public function label(): string
     {
         return match ($this) {
-            self::All => '会签',
-            self::Any => '或签',
+            self::ORDER => '订单',
         };
     }
 }
