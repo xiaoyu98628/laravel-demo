@@ -9,9 +9,4 @@ Route::group([
     'prefix' => 'v1',
     'as'     => 'api.',
 ], function () {
-
-    Route::controller(ApprovalTemplateController::class)->as('approval-template.')->prefix('approval-template')->group(function () {
-        Route::put('status', 'status')->name('status');
-    });
-    Route::apiResource('approval-template', ApprovalTemplateController::class)->except(['destroy']);
 });
