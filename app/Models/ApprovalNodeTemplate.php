@@ -63,4 +63,9 @@ class ApprovalNodeTemplate extends BaseModel
         'callback'    => 'array',
         'template_id' => 'string',
     ];
+
+    public function children()
+    {
+        return $this->hasMany(self::class, 'parent_id', 'id')->with('children');
+    }
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -54,8 +56,11 @@ class ApprovalTemplate extends BaseModel
         'status'    => 'string',
     ];
 
-    public function nodeTemplate(): \Illuminate\Database\Eloquent\Relations\HasMany
+    /**
+     * @return HasOne
+     */
+    public function nodeTemplate(): HasOne
     {
-        return $this->hasMany(ApprovalNodeTemplate::class, 'template_id', 'id');
+        return $this->hasOne(ApprovalNodeTemplate::class, 'template_id', 'id');
     }
 }

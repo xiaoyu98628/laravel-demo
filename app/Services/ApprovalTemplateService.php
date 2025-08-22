@@ -64,9 +64,17 @@ readonly class ApprovalTemplateService
      */
     public function show(string $id): JsonResponse
     {
-        $this->repositories->query()->where('id', $id)->first();
+        $model = $this->repositories->query()
+            ->where('id', $id)
+            ->with([
+                'nodeTemplate' => fn ($query) => $query->whereNull('parent_id')->with('children'),
+            ])->first();
 
-        return ApiResponse::success();
+        if (empty($model)) {
+            ApiResponse::fail(message: '数据不存在');
+        }
+
+        return ApiResponse::success(new ApprovalTemplateResources($model));
     }
 
     /**

@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Service\Common\Base\BaseResource;
 
-class ApprovalTemplateResources extends BaseResource
+class ApprovalNodeTemplateResources extends BaseResource
 {
     /**
      * 关联模型字段
@@ -13,7 +13,7 @@ class ApprovalTemplateResources extends BaseResource
     public function getWithFields(Request $request): array
     {
         return [
-            'node_template' => $this->node_template ? null : new ApprovalNodeTemplateResources($this->node_template),
+            'children' => $this->children ? [] : self::collection($this->children),
         ];
     }
 
