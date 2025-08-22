@@ -6,6 +6,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property string $id
+ * @property string $flow_code
+ * @property string $name
+ * @property string $callback
+ * @property string $remark
+ * @property string $status
+ * @property string $created_at
+ * @property string $created_admin_id
+ * @property string $updated_at
+ * @property string $updated_admin_id
+ * @property string $deleted_at
+ * @property string $deleted_admin_id
+ */
 class ApprovalTemplate extends BaseModel
 {
     use SoftDeletes;
@@ -39,4 +53,9 @@ class ApprovalTemplate extends BaseModel
         'remark'    => 'string',
         'status'    => 'string',
     ];
+
+    public function nodeTemplate(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ApprovalNodeTemplate::class, 'template_id', 'id');
+    }
 }

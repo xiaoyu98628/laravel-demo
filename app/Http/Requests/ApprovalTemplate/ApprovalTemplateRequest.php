@@ -28,11 +28,11 @@ class ApprovalTemplateRequest extends FormRequest
     {
         return match (Str::lower($this->method())) {
             HttpRequest::POST => [
-                'flow_code' => 'required|string|max:50',
-                'name'      => 'required|string|max:50',
-                'callback'  => 'array|required_if:flow_code,'.implode(',', FlowCode::needCallback()),
-                'remark'    => 'nullable|string|max:255',
-                'nodes'     => 'required|array',
+                'flow_code'     => 'required|string|max:50',
+                'name'          => 'required|string|max:50',
+                'callback'      => 'array|required_if:flow_code,'.implode(',', FlowCode::needCallback()),
+                'remark'        => 'nullable|string|max:255',
+                'node_template' => 'required|array',
             ]
         };
     }

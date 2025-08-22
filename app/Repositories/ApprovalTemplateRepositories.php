@@ -22,43 +22,63 @@ class ApprovalTemplateRepositories extends BaseRepository
 
     /**
      * 分页
-     * @param  array  $data
+     * @param  array  $inputs
      * @return LengthAwarePaginator
      */
-    public function page(array $data): LengthAwarePaginator
+    public function page(array $inputs): LengthAwarePaginator
     {
         $query = $this->query();
 
-        ! empty($data['flow_code']) && $query->where('flow_code', $data['flow_code']);
-        ! empty($data['status']) && $query->where('status', $data['status']);
-        ! empty($data['name']) && $query->where('name', 'like', '%'.$data['name'].'%');
+        $query->when(! empty($inputs['flow_code']), fn ($query) => $query->where('flow_code', $inputs['flow_code']));
+        $query->when(! empty($inputs['status']), fn ($query) => $query->where('status', $inputs['status']));
+        $query->when(! empty($inputs['name']), fn ($query) => $query->where('name', 'like', '%'.$inputs['name'].'%'));
 
-        return $query->paginate($data['page_size']);
+        return $query->paginate($inputs['page_size']);
     }
 
     /**
      * 列表
-     * @param  array  $data
+     * @param  array  $inputs
      * @return Collection
      */
-    public function list(array $data): Collection
+    public function list(array $inputs): Collection
     {
         return $this->query()->get();
     }
 
     /**
      * 创建
-     * @param  array  $data
+     * @param  array  $inputs
      * @return Model
      */
-    public function create(array $data): Model
+    public function store(array $inputs): Model
     {
+        ! empty($inputs['callback']) && ! is_array($inputs['callback']) && $inputs['callback'] = json_decode($inputs['callback'], true);
+
         return $this->query()->create([
-            'flow_code' => $data['flow_code'],
-            'name'      => $data['name'],
-            'callback'  => Arr::get($data, 'callback', DB::raw("'{}'")),
-            'remark'    => Arr::get($data, 'remark', ''),
+            'flow_code' => Arr::get($inputs, 'flow_code'),
+            'name'      => Arr::get($inputs, 'name'),
+            'callback'  => Arr::get($inputs, 'callback', DB::raw("'{}'")),
+            'remark'    => Arr::get($inputs, 'remark', ''),
             'status'    => Status::DISABLE->value,
+        ]);
+    }
+
+    /**
+     * 更新
+     * @param  string  $id
+     * @param  array  $inputs
+     * @return int
+     */
+    public function update(string $id, array $inputs): int
+    {
+        ! empty($inputs['callback']) && ! is_array($inputs['callback']) && $inputs['callback'] = json_decode($inputs['callback'], true);
+
+        return $this->query()->where('id', $id)->update([
+            'flow_code' => Arr::get($inputs, 'flow_code'),
+            'name'      => Arr::get($inputs, 'name'),
+            'callback'  => Arr::get($inputs, 'callback', DB::raw("'{}'")),
+            'remark'    => Arr::get($inputs, 'remark', ''),
         ]);
     }
 }

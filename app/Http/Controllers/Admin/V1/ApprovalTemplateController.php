@@ -31,8 +31,47 @@ class ApprovalTemplateController extends Controller
         ]));
     }
 
+    /**
+     * 创建
+     * @param  ApprovalTemplateRequest  $request
+     * @return JsonResponse
+     * @throws \Throwable
+     */
     public function store(ApprovalTemplateRequest $request)
     {
         return $this->service->store($request->all());
+    }
+
+    /**
+     * 详情
+     * @param  string  $id
+     * @return null
+     */
+    public function show(string $id)
+    {
+        return $this->service->show($id);
+    }
+
+    /**
+     * 更新
+     * @param  string  $id
+     * @param  Request  $request
+     * @return JsonResponse
+     * @throws \Throwable
+     */
+    public function update(string $id, Request $request)
+    {
+        return $this->service->update($id, $request->all());
+    }
+
+    /**
+     * 状态
+     * @param  string  $id
+     * @param  Request  $request
+     * @return bool
+     */
+    public function status(string $id, Request $request)
+    {
+        return $this->service->status($id, $request->all());
     }
 }
