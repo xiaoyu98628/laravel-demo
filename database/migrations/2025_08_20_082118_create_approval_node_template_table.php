@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('depth')->default(1)->comment('步骤');
             $table->string('name')->comment('名称');
             $table->string('description')->nullable()->comment('描述');
-            $table->enum('type', ['condition', 'approval', 'cc'])->comment('类型[condition:条件节点,approval:审核节点,cc:抄送节点]');
+            $table->enum('type', ['condition', 'approval', 'cc'])->comment('类型[condition:条件节点,approval:审核节点,cc:抄送节点,subflow:子流程节点]');
             $table->json('rules')->nullable()->comment('审批规则');
             $table->json('callback')->nullable()->comment('回调');
             $table->ulid('template_id')->comment('模版id');
