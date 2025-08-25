@@ -7,7 +7,6 @@ namespace App\Services;
 use App\Models\ApprovalNodeTemplate;
 use App\Repositories\ApprovalNodeTemplateRepositories;
 use Illuminate\Support\Arr;
-use Service\Common\Base\BaseRepository;
 
 class ApprovalNodeTemplateService
 {
@@ -56,6 +55,7 @@ class ApprovalNodeTemplateService
         if (empty($node['id'])) {
             /** @var ApprovalNodeTemplate $model */
             $model = $this->repositories->store($node);
+
             return $model->id;
         }
 
