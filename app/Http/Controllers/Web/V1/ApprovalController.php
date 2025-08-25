@@ -14,6 +14,6 @@ class ApprovalController extends Controller
 
     public function create(string $type, Request $request)
     {
-
+        return $this->service->create($type, $request->all());
     }
 }

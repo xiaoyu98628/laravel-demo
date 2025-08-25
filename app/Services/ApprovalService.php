@@ -11,7 +11,7 @@ class ApprovalService
 {
     public function __construct() {}
 
-    private function create(): JsonResponse
+    public function create(string $type, array $inputs): JsonResponse
     {
         return ApiResponse::success();
     }
