@@ -17,7 +17,7 @@ return new class extends Migration
             $table->ulid('parent_id')->nullable()->comment('父级id');
             $table->string('flow_code')->comment('流程标识');
             $table->string('title')->comment('标题');
-            $table->string('business_type')->comment('业务类型[order:订单]');
+            $table->string('business_type')->comment('业务类型[partner:合作者审批,publisher:发布者审批,finance:财务审批,execution:执行流审批,workflow:工作流审批,project:项目审批]');
             $table->ulid('business_id')->comment('业务id');
             $table->enum('status', ['create', 'process', 'success', 'reject', 'cancel'])->comment('状态[create:创建,process:进行中,success:通过,reject:驳回,cancel:取消]');
             $table->json('node_template_snapshot')->nullable()->comment('节点模版快照');
