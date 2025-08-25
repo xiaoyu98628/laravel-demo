@@ -13,6 +13,11 @@ class ApprovalService
 
     public function create(string $type, array $inputs): JsonResponse
     {
-        return ApiResponse::success();
+        try {
+            return ApiResponse::success();
+        } catch (\Exception $e) {
+            return ApiResponse::fail(message: $e->getMessage());
+        }
+
     }
 }

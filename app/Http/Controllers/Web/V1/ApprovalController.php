@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Web\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Approval\ApprovalRequest;
 use App\Services\ApprovalService;
-use Illuminate\Http\Request;
 
 class ApprovalController extends Controller
 {
@@ -12,7 +12,7 @@ class ApprovalController extends Controller
         private readonly ApprovalService $service,
     ) {}
 
-    public function create(string $type, Request $request)
+    public function create(string $type, ApprovalRequest $request)
     {
         return $this->service->create($type, $request->all());
     }
