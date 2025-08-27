@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('approval_template', function (Blueprint $table) {
             $table->ulid('id')->primary()->comment('主键');
-            $table->string('flow_code')->comment('流程标识[partner:合作者审批,publisher:发布者审批,finance:财务审批,execution:执行流审批,workflow:工作流审批,project:项目审批]');
+            $table->enum('flow_code', ['partner', 'publisher', 'finance', 'execution', 'workflow', 'project'])->comment('流程标识[partner:合作者审批,publisher:发布者审批,finance:财务审批,execution:执行流审批,workflow:工作流审批,project:项目审批]');
             $table->string('name')->comment('名称');
             $table->json('callback')->nullable()->comment('回调');
             $table->string('remark')->nullable()->comment('备注');
