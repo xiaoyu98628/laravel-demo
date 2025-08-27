@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $id
  * @property string $flow_code
  * @property string $name
- * @property string $callback
+ * @property array $callback
  * @property string $remark
  * @property string $status
  * @property string $created_at

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Repositories\ApprovalRepositories;
+use App\Repositories\ApprovalNodeTaskRepositories;
 use Illuminate\Http\JsonResponse;
 use Service\Common\Library\Response\ApiResponse;
 
-readonly class ApprovalService
+readonly class ApprovalNodeTaskService
 {
     public function __construct(
-        private ApprovalRepositories $repositories,
+        private ApprovalNodeTaskRepositories $repositories,
     ) {}
 
     public function create(string $type, array $inputs): JsonResponse

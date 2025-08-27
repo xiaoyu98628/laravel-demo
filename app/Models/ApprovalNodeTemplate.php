@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $description
  * @property string $type
  * @property string $rules
- * @property string $callback
+ * @property array $callback
  * @property string $template_id
  * @property string $created_at
  * @property string $created_admin_id

@@ -20,3 +20,4 @@ yarn-error.log
 /.junie
 /.cursor
 **/.DS_Store
+/.augment

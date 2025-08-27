@@ -17,7 +17,7 @@ return new class extends Migration
             $table->ulid('parent_id')->nullable()->comment('父级id');
             $table->enum('type', ['condition', 'approval', 'cc'])->default('approval')->comment('类型[condition:条件节点,approval:审核节点,cc:抄送节点,subflow:子流程节点]');
             $table->unsignedTinyInteger('depth')->default(1)->comment('步骤');
-            $table->string('step_name')->comment('步骤名称');
+            $table->string('name')->comment('名称');
             $table->enum('method', ['all', 'any'])->comment('审批方式[all:会签,any:或签]');
             $table->enum('status', ['process', 'approve', 'reject', 'skip', 'auto', 'cancel'])->comment('状态[process:审批中,approve:通过,reject:驳回,skip:跳过,auto:自动,cancel:取消]');
             $table->json('callback')->nullable()->comment('回调');

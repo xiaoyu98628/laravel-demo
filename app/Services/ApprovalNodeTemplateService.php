@@ -8,7 +8,7 @@ use App\Models\ApprovalNodeTemplate;
 use App\Repositories\ApprovalNodeTemplateRepositories;
 use Illuminate\Support\Arr;
 
-class ApprovalNodeTemplateService
+readonly class ApprovalNodeTemplateService
 {
     public function __construct(
         private ApprovalNodeTemplateRepositories $repositories,
