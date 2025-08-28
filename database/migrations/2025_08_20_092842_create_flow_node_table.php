@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('approval_node', function (Blueprint $table) {
+        Schema::create('flow_node', function (Blueprint $table) {
             $table->ulid('id')->primary()->comment('编号');
             $table->ulid('parent_id')->nullable()->comment('父级id');
             $table->unsignedTinyInteger('depth')->default(1)->comment('步骤');
@@ -21,11 +21,11 @@ return new class extends Migration
             $table->json('rules')->comment('审批规则');
             $table->enum('status', ['process', 'approve', 'reject', 'skip', 'auto', 'cancel'])->comment('状态[process:审批中,approve:通过,reject:驳回,skip:跳过,auto:自动,cancel:取消]');
             $table->json('callback')->nullable()->comment('回调');
-            $table->ulid('approval_id')->comment('审批id');
+            $table->ulid('flow_id')->comment('审批id');
             $table->json('extend')->nullable()->comment('额外信息');
             MigrationHelper::createTime($table);
             $table->index('parent_id');
-            $table->index('approval_id');
+            $table->index('flow_id');
             $table->comment('审批节点实例表');
         });
     }
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('approval_node');
+        Schema::dropIfExists('flow_node');
     }
 };

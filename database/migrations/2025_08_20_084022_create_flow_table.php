@@ -12,24 +12,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('approval', function (Blueprint $table) {
+        Schema::create('flow', function (Blueprint $table) {
             $table->ulid('id')->primary()->comment('主键');
             $table->ulid('parent_id')->nullable()->comment('父级id');
-            $table->string('flow_code')->comment('流程标识');
             $table->string('title')->comment('标题');
-            $table->enum('business_type', ['partner', 'publisher', 'finance', 'execution', 'workflow', 'project'])->comment('业务类型[partner:合作者审批,publisher:发布者审批,finance:财务审批,execution:执行流审批,workflow:工作流审批,project:项目审批]');
+            $table->enum('business_type', ['partner', 'publisher', 'finance', 'execution', 'workflow', 'project'])->comment('类型[partner:合作者审批,publisher:发布者审批,finance:财务审批,execution:执行流审批,workflow:工作流审批,project:项目审批]');
             $table->ulid('business_id')->comment('业务id');
             $table->enum('status', ['create', 'process', 'success', 'reject', 'cancel'])->comment('状态[create:创建,process:进行中,success:通过,reject:驳回,cancel:取消]');
-            $table->json('node_template_snapshot')->nullable()->comment('节点模版快照');
+            $table->json('flow_node_template_snapshot')->nullable()->comment('流程节点模版快照');
             $table->json('callback')->nullable()->comment('回调');
             $table->enum('applicant_type', ['user', 'admin'])->default('user')->comment('申请人类型[user:用户,admin:管理员]');
             $table->ulid('applicant_id')->comment('申请人id');
             $table->json('extend')->nullable()->comment('额外信息');
-            $table->ulid('template_id')->comment('模版id');
+            $table->ulid('flow_template_id')->comment('流程模版id');
             MigrationHelper::createTime($table);
             $table->index(['business_type', 'business_id']);
             $table->index('status');
-            $table->index('flow_code');
+            $table->index('business_type');
             $table->comment('审批实例表');
         });
     }
@@ -39,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('approval');
+        Schema::dropIfExists('approval_flow');
     }
 };
