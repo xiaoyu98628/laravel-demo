@@ -1,0 +1,45 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Constants\Enums\FlowTemplate;
+
+use App\Constants\Enums\BaseEnumTrait;
+
+enum Type: string
+{
+    use BaseEnumTrait;
+
+    case PARTNER   = 'partner';
+    case PUBLISHER = 'publisher';
+    case FINANCE   = 'finance';
+    case EXECUTION = 'execution';
+    case WORKFLOW  = 'workflow';
+    case PROJECT   = 'project';
+
+    /**
+     * 获取用户友好的标签
+     * @return string
+     */
+    public function label(): string
+    {
+        return match ($this) {
+            self::PARTNER   => '合作者职业认证',
+            self::PUBLISHER => '发布者认证',
+            self::FINANCE   => '财务审批流',
+            self::EXECUTION => '执行流',
+            self::WORKFLOW  => '工作流',
+            self::PROJECT   => '项目审批流',
+        };
+    }
+
+    public static function needCallback(): array
+    {
+        return [
+            self::PARTNER->value,
+            self::PUBLISHER->value,
+            self::FINANCE->value,
+            self::EXECUTION->value,
+        ];
+    }
+}
