@@ -29,7 +29,7 @@ class FlowTemplateRepositories extends BaseRepository
     {
         $query = $this->query();
 
-        $query->when(! empty($inputs['type']), fn ($query) => $query->where('flow_code', $inputs['type']));
+        $query->when(! empty($inputs['type']), fn ($query) => $query->where('type', $inputs['type']));
         $query->when(! empty($inputs['status']), fn ($query) => $query->where('status', $inputs['status']));
         $query->when(! empty($inputs['name']), fn ($query) => $query->where('name', 'like', '%'.$inputs['name'].'%'));
 
@@ -43,7 +43,12 @@ class FlowTemplateRepositories extends BaseRepository
      */
     public function list(array $inputs): Collection
     {
-        return $this->query()->get();
+        $query = $this->query();
+
+        $query->when(! empty($inputs['type']), fn ($query) => $query->where('type', $inputs['type']));
+        $query->when(! empty($inputs['status']), fn ($query) => $query->where('status', $inputs['status']));
+
+        return $query->get();
     }
 
     /**
@@ -53,8 +58,6 @@ class FlowTemplateRepositories extends BaseRepository
      */
     public function store(array $inputs): Model
     {
-        ! empty($inputs['callback']) && ! is_array($inputs['callback']) && $inputs['callback'] = json_decode($inputs['callback'], true);
-
         return $this->query()->create([
             'type'     => Arr::get($inputs, 'type'),
             'name'     => Arr::get($inputs, 'name'),
@@ -72,10 +75,7 @@ class FlowTemplateRepositories extends BaseRepository
      */
     public function update(string $id, array $inputs): int
     {
-        ! empty($inputs['callback']) && ! is_array($inputs['callback']) && $inputs['callback'] = json_decode($inputs['callback'], true);
-
         return $this->query()->where('id', $id)->update([
-            'type'     => Arr::get($inputs, 'type'),
             'name'     => Arr::get($inputs, 'name'),
             'callback' => Arr::get($inputs, 'callback', DB::raw("'{}'")),
             'remark'   => Arr::get($inputs, 'remark', ''),

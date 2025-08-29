@@ -22,7 +22,7 @@ readonly class FlowNodeTemplateService
      * @param  int  $stepOrder
      * @return array
      */
-    public function handleNodeTemplateTree(string $flowTemplateId, array $nodeTemplates, ?string $parentId = null, int $stepOrder = 1): array
+    public function handleNodeTemplateTree(string $flowTemplateId, array $nodeTemplates, int $stepOrder = 1, ?string $parentId = null): array
     {
         $idArr = [];
         foreach ($nodeTemplates as $nodeTemplate) {
@@ -30,7 +30,7 @@ readonly class FlowNodeTemplateService
             $idArr[] = $id;
 
             if (! empty($nodeTemplate['children'])) {
-                $idArr = array_merge($idArr, $this->handleNodeTemplateTree($flowTemplateId, $nodeTemplate['children'], $id, $stepOrder + 1));
+                $idArr = array_merge($idArr, $this->handleNodeTemplateTree($flowTemplateId, $nodeTemplate['children'], $stepOrder + 1, $id));
             }
         }
 

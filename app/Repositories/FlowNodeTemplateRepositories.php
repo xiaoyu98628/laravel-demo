@@ -32,7 +32,7 @@ class FlowNodeTemplateRepositories extends BaseRepository
             'type'             => Arr::get($inputs, 'type'),
             'rules'            => Arr::get($inputs, 'rules', DB::raw("'{}'")),
             'callback'         => Arr::get($inputs, 'callback', DB::raw("'{}'")),
-            'flow_template_id' => Arr::get($inputs, 'template_id'),
+            'flow_template_id' => Arr::get($inputs, 'flow_template_id'),
         ]);
     }
 
@@ -52,7 +52,7 @@ class FlowNodeTemplateRepositories extends BaseRepository
             'type'             => Arr::get($data, 'type'),
             'rules'            => Arr::get($data, 'rules', DB::raw("'{}'")),
             'callback'         => Arr::get($data, 'callback', DB::raw("'{}'")),
-            'flow_template_id' => Arr::get($data, 'template_id'),
+            'flow_template_id' => Arr::get($data, 'flow_template_id'),
         ]);
     }
 }

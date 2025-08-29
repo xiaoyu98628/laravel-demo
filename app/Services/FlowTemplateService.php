@@ -28,8 +28,8 @@ readonly class FlowTemplateService
     public function index(array $inputs): JsonResponse
     {
         return empty($inputs['not_page'])
-            ? ApiResponse::success(FlowTemplateResources::collection($this->repositories->list($inputs)))
-            : ApiResponse::success(new BaseCollection($this->repositories->page($inputs), FlowTemplateResources::class, true));
+            ? ApiResponse::success(new BaseCollection($this->repositories->page($inputs), FlowTemplateResources::class, true))
+            : ApiResponse::success(FlowTemplateResources::collection($this->repositories->list($inputs)));
     }
 
     /**

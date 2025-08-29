@@ -40,7 +40,7 @@ class FlowTemplateRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'type'     => '流程标识',
+            'type'     => '类型',
             'name'     => '名称',
             'callback' => '回调',
             'remark'   => '备注',
@@ -51,8 +51,10 @@ class FlowTemplateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'callback.array'       => '回调配置类型错误',
-            'callback.required_if' => '回调配置不能为空',
+            'callback.array'         => '回调配置类型错误',
+            'callback.required_if'   => '回调配置不能为空',
+            'node_template.required' => '节点不能为空',
+            'node_template.array'    => '节点配置错误',
         ];
     }
 }

@@ -10,8 +10,14 @@ Route::group([
     'as'     => 'admin.',
 ], function () {
 
-    Route::controller(FlowTemplateController::class)->as('flow-template.')->prefix('flow-template')->group(function () {
-        Route::put('status', 'status')->name('status');
+    Route::group([
+        'prefix' => 'flow',
+        'as'     => 'flow.',
+    ], function () {
+        Route::controller(FlowTemplateController::class)->as('template.')->prefix('template')->group(function () {
+            Route::put('status', 'status')->name('status');
+        });
+        Route::apiResource('template', FlowTemplateController::class)->except(['destroy']);
     });
-    Route::apiResource('flow-template', FlowTemplateController::class)->except(['destroy']);
+
 });
