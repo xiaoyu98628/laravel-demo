@@ -25,7 +25,7 @@ class FlowTemplate extends BaseModel
 {
     use SoftDeletes;
 
-    protected $table = 'approval_template';
+    protected $table = 'flow_template';
 
     protected $casts = [
         'callback' => 'json',
