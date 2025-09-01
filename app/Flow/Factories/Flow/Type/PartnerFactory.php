@@ -8,7 +8,7 @@ use App\Flow\Factories\Flow\BusinessSnapshot\PartnerBusinessSnapshotFactory;
 use App\Flow\Factories\Flow\Name\PartnerNameFactory;
 use App\Flow\Factories\Flow\TypeInterface;
 
-class PartnerFactory extends TypeFactory implements TypeInterface
+class PartnerFactory implements TypeInterface
 {
     /**
      * 获取审批标题
