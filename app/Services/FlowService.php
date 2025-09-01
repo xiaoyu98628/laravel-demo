@@ -24,11 +24,9 @@ readonly class FlowService
     {
         try {
             $this->flowBuilder->setType($type)->setInputs($inputs)->flow()->node()->task();
-
             return ApiResponse::success();
         } catch (\Exception $e) {
             return ApiResponse::fail(message: $e->getMessage());
         }
-
     }
 }
