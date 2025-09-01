@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Flow\Factories\Flow\Type;
 
 use App\Flow\Factories\Flow\BusinessSnapshot\PartnerBusinessSnapshotFactory;
-use App\Flow\Factories\Flow\Name\PartnerNameFactory;
+use App\Flow\Factories\Flow\Title\PartnerNameFactory;
 use App\Flow\Factories\Flow\TypeInterface;
+use Illuminate\Support\Arr;
 
 class PartnerFactory implements TypeInterface
 {
@@ -28,5 +29,13 @@ class PartnerFactory implements TypeInterface
     public function generateBusinessSnapshot(array $inputs): array
     {
         return (new PartnerBusinessSnapshotFactory)->generate($inputs);
+    }
+
+    public function generateFlow(array $inputs): array
+    {
+        return [
+            'parent_id' => Arr::get($inputs, 'parent_id'),
+            'title'     => $this->generateName($inputs),
+        ];
     }
 }

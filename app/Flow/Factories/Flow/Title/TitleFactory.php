@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Flow\Factories\Flow\Name;
+namespace App\Flow\Factories\Flow\Title;
 
-abstract class NameFactory
+abstract class TitleFactory
 {
     public function generate(array $inputs): string
     {

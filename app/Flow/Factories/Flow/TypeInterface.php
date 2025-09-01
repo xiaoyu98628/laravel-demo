@@ -12,4 +12,6 @@ interface TypeInterface
     public function generateName(array $inputs): string;
 
     public function generateBusinessSnapshot(array $inputs): array;
+
+    public function generateFlow(array $inputs): array;
 }

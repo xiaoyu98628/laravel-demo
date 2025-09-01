@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Flow;
 
+use App\Flow\Factories\FlowFactory;
+
 /**
  * 负责创建审批流程
  */
@@ -37,8 +39,13 @@ final class Builder
         return $this;
     }
 
+    /**
+     * @return $this
+     * @throws \Exception
+     */
     public function flow(): self
     {
+        $flow = FlowFactory::make($this->type)->generateFlow($this->inputs);
         return $this;
     }
 
