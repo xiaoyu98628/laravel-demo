@@ -13,6 +13,7 @@ enum Type: string
     case CONDITION = 'condition';
     case APPROVAL  = 'approval';
     case CC        = 'cc';
+    case SUBFLOW   = 'subflow';
 
     /**
      * 获取用户友好的标签
@@ -24,6 +25,7 @@ enum Type: string
             self::CONDITION => '条件节点',
             self::APPROVAL  => '审核节点',
             self::CC        => '抄送节点',
+            self::SUBFLOW   => '子流程节点',
         };
     }
 }

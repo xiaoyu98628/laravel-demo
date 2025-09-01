@@ -9,7 +9,7 @@ namespace App\Flow\Factories\Flow;
  */
 interface TypeInterface
 {
-    public function setTemplate(array $template): self;
+    public function setTemplate(array $template): static;
 
     public function generateName(array $inputs): string;
 

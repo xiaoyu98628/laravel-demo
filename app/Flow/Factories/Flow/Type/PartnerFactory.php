@@ -11,17 +11,8 @@ use App\Flow\Factories\Flow\Title\PartnerTitleFactory;
 use App\Flow\Factories\Flow\TypeInterface;
 use Illuminate\Support\Arr;
 
-class PartnerFactory implements TypeInterface
+class PartnerFactory extends TypeFactory implements TypeInterface
 {
-    private array $template;
-
-    public function setTemplate(array $template): self
-    {
-        $this->template = $template;
-
-        return $this;
-    }
-
     /**
      * 获取审批标题
      * @param  array  $inputs
