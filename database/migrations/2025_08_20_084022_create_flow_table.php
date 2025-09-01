@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title')->comment('标题');
             $table->enum('business_type', ['partner', 'publisher', 'finance', 'execution', 'workflow', 'project'])->comment('类型[partner:合作者审批,publisher:发布者审批,finance:财务审批,execution:执行流审批,workflow:工作流审批,project:项目审批]');
             $table->ulid('business_id')->comment('业务id');
+            $table->json('business_snapshot')->nullable()->comment('业务快照');
             $table->enum('status', ['create', 'process', 'success', 'reject', 'cancel'])->comment('状态[create:创建,process:进行中,success:通过,reject:驳回,cancel:取消]');
             $table->json('flow_node_template_snapshot')->nullable()->comment('流程节点模版快照');
             $table->json('callback')->nullable()->comment('回调');
