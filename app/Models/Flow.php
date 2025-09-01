@@ -30,6 +30,7 @@ class Flow extends BaseModel
     protected $table = 'flow';
 
     protected $casts = [
+        'business_snapshot'           => 'json',
         'flow_node_template_snapshot' => 'json',
         'callback'                    => 'json',
         'extend'                      => 'json',
@@ -41,6 +42,7 @@ class Flow extends BaseModel
         'title',
         'business_type',
         'business_id',
+        'business_snapshot',
         'status',
         'flow_node_template_snapshot',
         'callback',
@@ -59,6 +61,7 @@ class Flow extends BaseModel
         'title'                       => 'string',
         'business_type'               => 'string',
         'business_id'                 => 'string',
+        'business_snapshot'           => 'array',
         'status'                      => 'string',
         'flow_node_template_snapshot' => 'array',
         'callback'                    => 'array',

@@ -9,6 +9,8 @@ namespace App\Flow\Factories\Flow;
  */
 interface TypeInterface
 {
+    public function setTemplate(array $template): self;
+
     public function generateName(array $inputs): string;
 
     public function generateBusinessSnapshot(array $inputs): array;

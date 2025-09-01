@@ -4,18 +4,29 @@ declare(strict_types=1);
 
 namespace App\Flow;
 
+use App\Constants\Enums\FlowTemplate\Status;
 use App\Flow\Factories\FlowFactory;
+use App\Repositories\FlowRepositories;
+use App\Repositories\FlowTemplateRepositories;
 
 /**
  * 负责创建审批流程
  */
 final class Builder
 {
+    public function __construct(
+        private readonly FlowTemplateRepositories $flowTemplateRepositories,
+        private readonly FlowRepositories $flowRepositories,
+    ) {}
+
     /** @var string 审批流类型 */
     private string $type;
 
     /** @var array 业务参数 */
     private array $inputs;
+
+    /** @var array 审批模版 */
+    private array $template;
 
     /**
      * @param  string  $type
@@ -40,12 +51,30 @@ final class Builder
     }
 
     /**
+     * 获取审批模版
+     * @return $this
+     */
+    public function getTemplate(): self
+    {
+        $this->template = $this->flowTemplateRepositories->query()
+            ->where('type', $this->type)
+            ->where('status', Status::ENABLE->value)
+            ->with([
+                'nodeTemplate' => fn ($query) => $query->whereNull('parent_id')->with('children'),
+            ])->first()->toArray();
+
+        return $this;
+    }
+
+    /**
      * @return $this
      * @throws \Exception
      */
     public function flow(): self
     {
-        $flow = FlowFactory::make($this->type)->generateFlow($this->inputs);
+        $flow = FlowFactory::make($this->type)->setTemplate($this->template)->generateFlow($this->inputs);
+        $this->flowRepositories->store($flow);
+
         return $this;
     }
 

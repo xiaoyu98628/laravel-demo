@@ -25,18 +25,18 @@ class FlowRepositories extends BaseRepository
     public function store(array $inputs): Model
     {
         return $this->query()->create([
-            'parent_id'              => Arr::get($inputs, 'parent_id'),
-            'flow_code'              => Arr::get($inputs, 'flow_code'),
-            'title'                  => Arr::get($inputs, 'title'),
-            'business_type'          => Arr::get($inputs, 'business_type'),
-            'business_id'            => Arr::get($inputs, 'business_id'),
-            'status'                 => Arr::get($inputs, 'status'),
-            'node_template_snapshot' => Arr::get($inputs, 'node_template_snapshot'),
-            'callback'               => Arr::get($inputs, 'callback', DB::raw("'{}'")),
-            'applicant_type'         => Arr::get($inputs, 'applicant_type'),
-            'applicant_id'           => Arr::get($inputs, 'applicant_id'),
-            'extend'                 => Arr::get($inputs, 'extend'),
-            'template_id'            => Arr::get($inputs, 'template_id'),
+            'parent_id'                   => Arr::get($inputs, 'parent_id'),
+            'title'                       => Arr::get($inputs, 'title'),
+            'business_type'               => Arr::get($inputs, 'business_type'),
+            'business_id'                 => Arr::get($inputs, 'business_id'),
+            'business_snapshot'           => Arr::get($inputs, 'business_snapshot'),
+            'status'                      => Arr::get($inputs, 'status'),
+            'flow_node_template_snapshot' => Arr::get($inputs, 'flow_node_template_snapshot'),
+            'callback'                    => Arr::get($inputs, 'callback', DB::raw("'{}'")),
+            'applicant_type'              => Arr::get($inputs, 'applicant_type'),
+            'applicant_id'                => Arr::get($inputs, 'applicant_id'),
+            'extend'                      => Arr::get($inputs, 'extend'),
+            'flow_template_id'            => Arr::get($inputs, 'flow_template_id'),
         ]);
     }
 
@@ -49,9 +49,9 @@ class FlowRepositories extends BaseRepository
     public function update(string $id, array $inputs): int
     {
         return $this->query()->where('id', $id)->update([
-            'status'                 => Arr::get($inputs, 'status'),
-            'node_template_snapshot' => Arr::get($inputs, 'node_template_snapshot'),
-            'extend'                 => Arr::get($inputs, 'extend'),
+            'status'                      => Arr::get($inputs, 'status'),
+            'flow_node_template_snapshot' => Arr::get($inputs, 'flow_node_template_snapshot'),
+            'extend'                      => Arr::get($inputs, 'extend'),
         ]);
     }
 }

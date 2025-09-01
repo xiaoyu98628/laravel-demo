@@ -23,7 +23,7 @@ readonly class FlowService
     public function create(string $type, array $inputs): JsonResponse
     {
         try {
-            $this->flowBuilder->setType($type)->setInputs($inputs)->flow()->node()->task();
+            $this->flowBuilder->setType($type)->setInputs($inputs)->getTemplate()->flow()->node()->task();
             return ApiResponse::success();
         } catch (\Exception $e) {
             return ApiResponse::fail(message: $e->getMessage());
