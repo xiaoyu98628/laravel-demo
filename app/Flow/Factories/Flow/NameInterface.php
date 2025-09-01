@@ -7,7 +7,7 @@ namespace App\Flow\Factories\Flow;
 /**
  * 审批流程名称接口
  */
-interface FlowNameInterface
+interface NameInterface
 {
     public function generate(array $inputs): string;
 }
