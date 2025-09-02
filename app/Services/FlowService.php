@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Flow\Builder;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use Service\Common\Library\Response\ApiResponse;
 
 readonly class FlowService
@@ -19,13 +20,20 @@ readonly class FlowService
      * @param  string  $type
      * @param  array  $inputs
      * @return JsonResponse
+     * @throws \Throwable
      */
     public function create(string $type, array $inputs): JsonResponse
     {
+        DB::beginTransaction();
         try {
             $this->flowBuilder->setType($type)->setInputs($inputs)->getTemplate()->flow()->node()->task();
+
+            DB::commit();
+
             return ApiResponse::success();
         } catch (\Exception $e) {
+            DB::rollBack();
+
             return ApiResponse::fail(message: $e->getMessage());
         }
     }

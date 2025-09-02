@@ -6,6 +6,8 @@ namespace App\Flow;
 
 use App\Constants\Enums\FlowTemplate\Status;
 use App\Flow\Factories\FlowFactory;
+use App\Flow\Factories\NodeFactory;
+use App\Repositories\FlowNodeRepositories;
 use App\Repositories\FlowRepositories;
 use App\Repositories\FlowTemplateRepositories;
 
@@ -17,6 +19,7 @@ final class Builder
     public function __construct(
         private readonly FlowTemplateRepositories $flowTemplateRepositories,
         private readonly FlowRepositories $flowRepositories,
+        private readonly FlowNodeRepositories $flowNodeRepositories,
     ) {}
 
     /** @var string 审批流类型 */
@@ -78,8 +81,15 @@ final class Builder
         return $this;
     }
 
+    /**
+     * @return $this
+     * @throws \Exception
+     */
     public function node(): self
     {
+        $node = NodeFactory::make($this->type)->setTemplate($this->template)->generateNode($this->inputs);
+        $this->flowNodeRepositories->store($node);
+
         return $this;
     }
 
