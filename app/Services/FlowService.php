@@ -26,7 +26,14 @@ readonly class FlowService
     {
         DB::beginTransaction();
         try {
-            $this->flowBuilder->setType($type)->setInputs($inputs)->getTemplate()->flow()->node()->task();
+            $builder = $this->flowBuilder->setType($type)->setInputs($inputs)->getTemplate();
+
+            // 创建流程
+            $builder->flow();
+            // 创建节点
+            $builder->node();
+            // 创建任务
+            $builder->task();
 
             DB::commit();
 

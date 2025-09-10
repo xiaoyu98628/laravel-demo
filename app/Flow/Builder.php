@@ -8,6 +8,7 @@ use App\Constants\Enums\FlowTemplate\Status;
 use App\Flow\Factories\FlowFactory;
 use App\Flow\Factories\NodeFactory;
 use App\Repositories\FlowNodeRepositories;
+use App\Repositories\FlowNodeTaskRepositories;
 use App\Repositories\FlowRepositories;
 use App\Repositories\FlowTemplateRepositories;
 
@@ -20,6 +21,7 @@ final class Builder
         private readonly FlowTemplateRepositories $flowTemplateRepositories,
         private readonly FlowRepositories $flowRepositories,
         private readonly FlowNodeRepositories $flowNodeRepositories,
+        private readonly FlowNodeTaskRepositories $flowNodeTaskRepositories,
     ) {}
 
     /** @var string 审批流类型 */
@@ -64,7 +66,7 @@ final class Builder
             ->where('status', Status::ENABLE->value)
             ->with([
                 'nodeTemplate' => fn ($query) => $query->whereNull('parent_id')->with('children'),
-            ])->first()->toArray();
+            ])->get()->toArray();
 
         return $this;
     }
@@ -95,6 +97,8 @@ final class Builder
 
     public function task(): self
     {
+        $this->flowNodeTaskRepositories->store([]);
+
         return $this;
     }
 }
