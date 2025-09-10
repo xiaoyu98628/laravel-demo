@@ -21,9 +21,14 @@ class FlowNodeTaskRepositories extends BaseRepository
      * 创建
      * @param  array  $inputs
      * @return Model
+     * @throws \Exception
      */
     public function store(array $inputs): Model
     {
+        if (empty($inputs)) {
+            throw new \Exception('参数错误');
+        }
+
         return $this->query()->create([
             'approver_id'      => Arr::get($inputs, 'approver_id'),
             'approver_name'    => Arr::get($inputs, 'approver_name'),
@@ -40,9 +45,14 @@ class FlowNodeTaskRepositories extends BaseRepository
      * @param  string  $id
      * @param  array  $inputs
      * @return int
+     * @throws \Exception
      */
     public function update(string $id, array $inputs): int
     {
+        if (empty($inputs)) {
+            throw new \Exception('参数错误');
+        }
+
         return $this->query()->where('id', $id)->update([
             'operation_info' => Arr::get($inputs, 'operation_info', DB::raw("'{}'")),
             'status'         => Arr::get($inputs, 'status'),

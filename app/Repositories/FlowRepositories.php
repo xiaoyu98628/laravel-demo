@@ -21,9 +21,14 @@ class FlowRepositories extends BaseRepository
      * 创建
      * @param  array  $inputs
      * @return Model
+     * @throws \Exception
      */
     public function store(array $inputs): Model
     {
+        if (empty($inputs)) {
+            throw new \Exception('参数错误');
+        }
+
         return $this->query()->create([
             'parent_id'                   => Arr::get($inputs, 'parent_id'),
             'title'                       => Arr::get($inputs, 'title'),
@@ -45,9 +50,14 @@ class FlowRepositories extends BaseRepository
      * @param  string  $id
      * @param  array  $inputs
      * @return int
+     * @throws \Exception
      */
     public function update(string $id, array $inputs): int
     {
+        if (empty($inputs)) {
+            throw new \Exception('参数错误');
+        }
+
         return $this->query()->where('id', $id)->update([
             'status'                      => Arr::get($inputs, 'status'),
             'flow_node_template_snapshot' => Arr::get($inputs, 'flow_node_template_snapshot'),
