@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FlowTemplate\FlowTemplateDivRequest;
 use App\Http\Requests\FlowTemplate\FlowTemplateRequest;
 use App\Services\FlowTemplateService;
 use Illuminate\Http\JsonResponse;
@@ -55,11 +56,11 @@ class FlowTemplateController extends Controller
     /**
      * 更新
      * @param  string  $id
-     * @param  Request  $request
+     * @param  FlowTemplateRequest  $request
      * @return JsonResponse
      * @throws \Throwable
      */
-    public function update(string $id, Request $request)
+    public function update(string $id, FlowTemplateRequest $request)
     {
         return $this->service->update($id, $request->all());
     }
@@ -67,10 +68,10 @@ class FlowTemplateController extends Controller
     /**
      * 状态
      * @param  string  $id
-     * @param  Request  $request
-     * @return bool
+     * @param  FlowTemplateDivRequest  $request
+     * @return JsonResponse
      */
-    public function status(string $id, Request $request)
+    public function status(string $id, FlowTemplateDivRequest $request)
     {
         return $this->service->status($id, $request->all());
     }

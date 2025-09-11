@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Http\Resources\FlowTemplateResources;
 use App\Models\FlowTemplate;
+use App\Repositories\FlowNodeTemplateRepositories;
 use App\Repositories\FlowTemplateRepositories;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
@@ -18,6 +19,7 @@ readonly class FlowTemplateService
     public function __construct(
         private FlowTemplateRepositories $repositories,
         private FlowNodeTemplateService $flowNodeTemplateService,
+        private FlowNodeTemplateRepositories $flowNodeTemplateRepositories,
     ) {}
 
     /**
@@ -67,7 +69,7 @@ readonly class FlowTemplateService
         $model = $this->repositories->query()
             ->where('id', $id)
             ->with([
-                'nodeTemplate' => fn ($query) => $query->whereNull('parent_id')->with('children'),
+                'nodeTemplate' => fn ($query) => $query->whereNull('parent_id')->with(['children', 'conditionNode']),
             ])->first();
 
         if (empty($model)) {
@@ -91,7 +93,15 @@ readonly class FlowTemplateService
 
             $this->repositories->update($id, $inputs);
 
-            $this->flowNodeTemplateService->handleNodeTemplateTree($id, Arr::get($inputs, 'node_template', []));
+            // 获取当前流程所有的节点ID
+            $oldNodeIdArr = $this->flowNodeTemplateRepositories->findIdByFlowTemplateId($id);
+
+            $newNodeIdArr = $this->flowNodeTemplateService->handleNodeTemplateTree($id, Arr::get($inputs, 'node_template', []));
+
+            // 删除差集的节点,后面的参数必须是新节点ID
+            if ($deleteIdArr = array_diff($oldNodeIdArr, $newNodeIdArr)) {
+                $this->flowNodeTemplateRepositories->destroy($deleteIdArr);
+            }
 
             DB::commit();
 
@@ -107,9 +117,9 @@ readonly class FlowTemplateService
      * 状态
      * @param  string  $id
      * @param  array  $inputs
-     * @return bool
+     * @return JsonResponse
      */
-    public function status(string $id, array $inputs): bool
+    public function status(string $id, array $inputs): JsonResponse
     {
         /** @var FlowTemplate $model */
         $model = $this->repositories->query()->where('id', $id)->first();
@@ -120,9 +130,11 @@ readonly class FlowTemplateService
 
         // 如果修改的状态与当前状态一致
         if ($inputs['status'] == $model->status) {
-            ApiResponse::fail(message: '不能改为当前状态');
+            return ApiResponse::fail(message: '不能改为当前状态');
         }
 
-        return $model->update(['status' => $inputs['status']]);
+        $model->update(['status' => $inputs['status']]);
+
+        return ApiResponse::success();
     }
 }

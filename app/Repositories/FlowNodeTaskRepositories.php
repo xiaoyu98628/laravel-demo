@@ -33,7 +33,7 @@ class FlowNodeTaskRepositories extends BaseRepository
             'approver_id'      => Arr::get($inputs, 'approver_id'),
             'approver_name'    => Arr::get($inputs, 'approver_name'),
             'approver_type'    => Arr::get($inputs, 'approver_type'),
-            'operation_info'   => Arr::get($inputs, 'operation_info', DB::raw("'{}'")),
+            'operation_info'   => empty($inputs['operation_info']) ? null : $inputs['operation_info'],
             'status'           => Arr::get($inputs, 'status'),
             'approval_node_id' => Arr::get($inputs, 'approval_node_id'),
             'extend'           => Arr::get($inputs, 'extend'),
@@ -54,7 +54,7 @@ class FlowNodeTaskRepositories extends BaseRepository
         }
 
         return $this->query()->where('id', $id)->update([
-            'operation_info' => Arr::get($inputs, 'operation_info', DB::raw("'{}'")),
+            'operation_info' => empty($inputs['operation_info']) ? null : $inputs['operation_info'],
             'status'         => Arr::get($inputs, 'status'),
             'extend'         => Arr::get($inputs, 'extend'),
         ]);

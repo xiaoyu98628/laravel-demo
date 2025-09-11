@@ -35,8 +35,8 @@ class FlowNodeTemplateRepositories extends BaseRepository
             'name'             => Arr::get($inputs, 'name'),
             'description'      => Arr::get($inputs, 'description'),
             'type'             => Arr::get($inputs, 'type'),
-            'rules'            => Arr::get($inputs, 'rules', DB::raw("'{}'")),
-            'callback'         => Arr::get($inputs, 'callback', DB::raw("'{}'")),
+            'rules'            => empty($inputs['rules']) ? null : $inputs['rules'],
+            'callback'         => empty($inputs['callback']) ? null : $inputs['callback'],
             'flow_template_id' => Arr::get($inputs, 'flow_template_id'),
         ]);
     }
@@ -44,25 +44,35 @@ class FlowNodeTemplateRepositories extends BaseRepository
     /**
      * 更新
      * @param  string  $id
-     * @param  array  $data
+     * @param  array  $inputs
      * @return int
      * @throws \Exception
      */
-    public function update(string $id, array $data): int
+    public function update(string $id, array $inputs): int
     {
         if (empty($inputs)) {
             throw new \Exception('参数错误');
         }
 
         return $this->query()->where('id', $id)->update([
-            'parent_id'        => Arr::get($data, 'parent_id'),
-            'depth'            => Arr::get($data, 'depth'),
-            'name'             => Arr::get($data, 'name'),
-            'description'      => Arr::get($data, 'description'),
-            'type'             => Arr::get($data, 'type'),
-            'rules'            => Arr::get($data, 'rules', DB::raw("'{}'")),
-            'callback'         => Arr::get($data, 'callback', DB::raw("'{}'")),
-            'flow_template_id' => Arr::get($data, 'flow_template_id'),
+            'parent_id'        => Arr::get($inputs, 'parent_id'),
+            'depth'            => Arr::get($inputs, 'depth'),
+            'name'             => Arr::get($inputs, 'name'),
+            'description'      => Arr::get($inputs, 'description'),
+            'type'             => Arr::get($inputs, 'type'),
+            'rules'            => empty($inputs['rules']) ? null : $inputs['rules'],
+            'callback'         => empty($inputs['callback']) ? null : $inputs['callback'],
+            'flow_template_id' => Arr::get($inputs, 'flow_template_id'),
         ]);
+    }
+
+    /**
+     * 根据flowTemplateId获取ID
+     * @param  string  $flowTemplateId
+     * @return array
+     */
+    public function findIdByFlowTemplateId(string $flowTemplateId): array
+    {
+        return $this->query()->where('flow_template_id', $flowTemplateId)->pluck('id')->toArray();
     }
 }

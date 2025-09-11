@@ -36,7 +36,7 @@ class FlowNodeRepositories extends BaseRepository
             'type'        => Arr::get($inputs, 'type'),
             'rules'       => Arr::get($inputs, 'rules'),
             'status'      => Arr::get($inputs, 'status'),
-            'callback'    => Arr::get($inputs, 'callback', DB::raw("'{}'")),
+            'callback'    => empty($inputs['callback']) ? null : $inputs['callback'],
             'approval_id' => Arr::get($inputs, 'approval_id'),
             'extend'      => Arr::get($inputs, 'extend'),
         ]);

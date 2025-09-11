@@ -27,13 +27,13 @@ class FlowTemplateRequest extends FormRequest
     public function rules(): array
     {
         return match (Str::lower($this->method())) {
-            HttpRequest::POST => [
+            HttpRequest::POST, HttpRequest::PUT => [
                 'type'          => 'required|string|max:50',
                 'name'          => 'required|string|max:50',
                 'callback'      => 'array|required_if:flow_code,'.implode(',', Type::needCallback()),
                 'remark'        => 'nullable|string|max:255',
                 'node_template' => 'required|array',
-            ]
+            ],
         };
     }
 

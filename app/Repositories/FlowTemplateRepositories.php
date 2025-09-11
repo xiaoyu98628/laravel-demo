@@ -66,7 +66,7 @@ class FlowTemplateRepositories extends BaseRepository
         return $this->query()->create([
             'type'     => Arr::get($inputs, 'type'),
             'name'     => Arr::get($inputs, 'name'),
-            'callback' => Arr::get($inputs, 'callback', DB::raw("'{}'")),
+            'callback' => empty($inputs['callback']) ? null : $inputs['callback'],
             'remark'   => Arr::get($inputs, 'remark', ''),
             'status'   => Status::DISABLE->value,
         ]);
@@ -87,7 +87,7 @@ class FlowTemplateRepositories extends BaseRepository
 
         return $this->query()->where('id', $id)->update([
             'name'     => Arr::get($inputs, 'name'),
-            'callback' => Arr::get($inputs, 'callback', DB::raw("'{}'")),
+            'callback' => empty($inputs['callback']) ? null : $inputs['callback'],
             'remark'   => Arr::get($inputs, 'remark', ''),
         ]);
     }

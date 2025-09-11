@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Constants\Enums\FlowNodeTemplate\Type;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -55,17 +58,34 @@ class FlowNodeTemplate extends BaseModel
     protected array $resource = [
         'id'               => 'string',
         'parent_id'        => 'string',
-        'depth'            => 'string',
+        'depth'            => 'int',
         'name'             => 'string',
         'description'      => 'string',
         'type'             => 'string',
-        'rules'            => 'string',
+        'rules'            => 'array',
         'callback'         => 'array',
         'flow_template_id' => 'string',
     ];
 
-    public function children()
+    /**
+     * 子节点
+     * @return HasOne
+     */
+    public function children(): HasOne
     {
-        return $this->hasMany(self::class, 'parent_id', 'id')->with('children');
+        return $this->hasOne(self::class, 'parent_id', 'id')
+            ->whereNot('type', Type::CONDITION->value)
+            ->with(['children', 'conditionNode']);
+    }
+
+    /**
+     * 条件节点
+     * @return HasMany
+     */
+    public function conditionNode(): HasMany
+    {
+        return $this->hasMany(self::class, 'parent_id', 'id')
+            ->where('type', Type::CONDITION->value)
+            ->with(['children', 'conditionNode']);
     }
 }

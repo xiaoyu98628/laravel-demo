@@ -37,7 +37,7 @@ class FlowRepositories extends BaseRepository
             'business_snapshot'           => Arr::get($inputs, 'business_snapshot'),
             'status'                      => Arr::get($inputs, 'status'),
             'flow_node_template_snapshot' => Arr::get($inputs, 'flow_node_template_snapshot'),
-            'callback'                    => Arr::get($inputs, 'callback', DB::raw("'{}'")),
+            'callback'                    => empty($inputs['callback']) ? null : $inputs['callback'],
             'applicant_type'              => Arr::get($inputs, 'applicant_type'),
             'applicant_id'                => Arr::get($inputs, 'applicant_id'),
             'extend'                      => Arr::get($inputs, 'extend'),

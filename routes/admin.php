@@ -15,7 +15,7 @@ Route::group([
         'as'     => 'flow.',
     ], function () {
         Route::controller(FlowTemplateController::class)->as('template.')->prefix('template')->group(function () {
-            Route::put('status', 'status')->name('status');
+            Route::put('{id}/status', 'status')->name('status');
         });
         Route::apiResource('template', FlowTemplateController::class)->except(['destroy']);
     });

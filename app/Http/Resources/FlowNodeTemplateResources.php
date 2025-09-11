@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
@@ -13,7 +15,8 @@ class FlowNodeTemplateResources extends BaseResource
     public function getWithFields(Request $request): array
     {
         return [
-            'children' => $this->children ? [] : self::collection($this->children),
+            'children'       => $this->children ? new self($this->children) : null,
+            'condition_node' => $this->conditionNode ? self::collection($this->conditionNode) : null,
         ];
     }
 

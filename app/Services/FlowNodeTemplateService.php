@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Constants\Enums\FlowNodeTemplate\Type;
 use App\Models\FlowNodeTemplate;
 use App\Repositories\FlowNodeTemplateRepositories;
 use Illuminate\Support\Arr;
@@ -18,20 +19,37 @@ readonly class FlowNodeTemplateService
      * 处理树形数据
      * @param  string  $flowTemplateId
      * @param  array  $nodeTemplates
-     * @param  string|null  $parentId
      * @param  int  $stepOrder
+     * @param  string|null  $parentId
+     * @param  array|null  $idArr
      * @return array
+     * @throws \Exception
      */
-    public function handleNodeTemplateTree(string $flowTemplateId, array $nodeTemplates, int $stepOrder = 1, ?string $parentId = null): array
+    public function handleNodeTemplateTree(string $flowTemplateId, array $nodeTemplates, int $stepOrder = 1, ?string $parentId = null, ?array $idArr = []): array
     {
-        $idArr = [];
-        foreach ($nodeTemplates as $nodeTemplate) {
-            $id      = $this->upsert($flowTemplateId, $nodeTemplate, $stepOrder, $parentId);
-            $idArr[] = $id;
+        if (! in_array(Arr::get($nodeTemplates, 'type'), Type::values())) {
+            throw new \Exception('错误的节点类型');
+        }
 
-            if (! empty($nodeTemplate['children'])) {
-                $idArr = array_merge($idArr, $this->handleNodeTemplateTree($flowTemplateId, $nodeTemplate['children'], $stepOrder + 1, $id));
-            }
+        $nodeId  = $this->upsert($flowTemplateId, $nodeTemplates, $stepOrder, $parentId);
+        $idArr[] = $nodeId;
+
+        match (Arr::get($nodeTemplates, 'type')) {
+            Type::CONDITION_ROUTE->value => value(function () use ($flowTemplateId, $nodeTemplates, $stepOrder, $nodeId, &$idArr) {
+                foreach (Arr::get($nodeTemplates, 'condition_node', []) as $nodeTemplate) {
+                    $id      = $this->upsert($flowTemplateId, $nodeTemplate, $stepOrder, $nodeId);
+                    $idArr[] = $id;
+
+                    if (! empty(Arr::get($nodeTemplate, 'children', []))) {
+                        $idArr = [...$idArr, ...$this->handleNodeTemplateTree($flowTemplateId, Arr::get($nodeTemplate, 'children', []), $stepOrder + 1, $id)];
+                    }
+                }
+            }),
+            default => '',
+        };
+
+        if (! empty(Arr::get($nodeTemplates, 'children', []))) {
+            $idArr = [...$idArr, ...$this->handleNodeTemplateTree($flowTemplateId, Arr::get($nodeTemplates, 'children', []), $stepOrder + 1, $nodeId)];
         }
 
         return $idArr;
@@ -44,6 +62,7 @@ readonly class FlowNodeTemplateService
      * @param  int  $stepOrder
      * @param  string|null  $parentId
      * @return string
+     * @throws \Exception
      */
     private function upsert(string $flowTemplateId, array $nodeTemplate, int $stepOrder, ?string $parentId = null): string
     {
