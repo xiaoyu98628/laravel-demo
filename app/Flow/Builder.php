@@ -65,8 +65,9 @@ final class Builder
             ->where('type', $this->type)
             ->where('status', Status::ENABLE->value)
             ->with([
-                'nodeTemplate' => fn ($query) => $query->whereNull('parent_id')->with('children'),
-            ])->get()->toArray();
+                'nodeTemplate' => fn ($query) => $query->whereNull('parent_id')->with(['children', 'conditionNode']),
+            ])->firstOrFail()
+            ->toArray();
 
         return $this;
     }

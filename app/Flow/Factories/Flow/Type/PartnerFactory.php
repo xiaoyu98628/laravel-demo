@@ -20,7 +20,7 @@ class PartnerFactory extends TypeFactory implements TypeInterface
      */
     public function generateName(array $inputs): string
     {
-        return (new PartnerTitleFactory)->generate($inputs);
+        return (new PartnerTitleFactory)->generate($inputs, $this->template);
     }
 
     /**

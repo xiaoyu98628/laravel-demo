@@ -9,5 +9,5 @@ namespace App\Flow\Factories\Flow;
  */
 interface TitleInterface
 {
-    public function generate(array $inputs): string;
+    public function generate(array $inputs, array $template): string;
 }
