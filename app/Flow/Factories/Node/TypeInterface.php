@@ -12,4 +12,6 @@ interface TypeInterface
     public function setTemplate(array $template): static;
 
     public function generateNode(array $inputs): array;
+
+    public function getType(): string;
 }

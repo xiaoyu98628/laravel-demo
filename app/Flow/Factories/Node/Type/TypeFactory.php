@@ -35,7 +35,7 @@ abstract class TypeFactory
             'parent_id' => Arr::get($inputs, 'parent_id'),
             'depth'     => Arr::get($this->template, 'depth'),
             'name'      => Arr::get($this->template, 'name'),
-            'type'      => Type::APPROVAL->value,
+            'type'      => $this->getType(),
             'rules'     => Arr::get($this->template, 'rules'),
             'status'    => Status::PROCESS->value,
             'callback'  => Arr::get($this->template, 'callback'),
