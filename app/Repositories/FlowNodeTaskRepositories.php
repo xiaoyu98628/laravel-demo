@@ -7,7 +7,6 @@ namespace App\Repositories;
 use App\Models\FlowNodeTask;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 use Service\Common\Base\BaseRepository;
 
 class FlowNodeTaskRepositories extends BaseRepository

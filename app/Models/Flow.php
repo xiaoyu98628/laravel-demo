@@ -8,10 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $id
- * @property string $parent_id
  * @property string $title
  * @property string $business_type
  * @property string $business_id
+ * @property string $business_snapshot
+ * @property string $parent_flow_id
+ * @property string $parent_node_id
+ * @property string $level
  * @property string $status
  * @property array $flow_node_template_snapshot
  * @property array $callback
@@ -38,7 +41,9 @@ class Flow extends BaseModel
 
     protected $fillable = [
         'id',
-        'parent_id',
+        'parent_flow_id',
+        'parent_node_id',
+        'level',
         'title',
         'business_type',
         'business_id',
@@ -57,7 +62,9 @@ class Flow extends BaseModel
 
     protected array $resource = [
         'id'                          => 'string',
-        'parent_id'                   => 'string',
+        'parent_flow_id'              => 'string',
+        'parent_node_id'              => 'string',
+        'level'                       => 'string',
         'title'                       => 'string',
         'business_type'               => 'string',
         'business_id'                 => 'string',

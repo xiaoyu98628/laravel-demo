@@ -7,7 +7,6 @@ namespace App\Repositories;
 use App\Models\Flow;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 use Service\Common\Base\BaseRepository;
 
 class FlowRepositories extends BaseRepository
@@ -30,10 +29,12 @@ class FlowRepositories extends BaseRepository
         }
 
         return $this->query()->create([
-            'parent_id'                   => Arr::get($inputs, 'parent_id'),
             'title'                       => Arr::get($inputs, 'title'),
             'business_type'               => Arr::get($inputs, 'business_type'),
             'business_id'                 => Arr::get($inputs, 'business_id'),
+            'parent_flow_id'              => Arr::get($inputs, 'parent_flow_id'),
+            'parent_node_id'              => Arr::get($inputs, 'parent_node_id'),
+            'level'                       => Arr::get($inputs, 'level'),
             'business_snapshot'           => Arr::get($inputs, 'business_snapshot'),
             'status'                      => Arr::get($inputs, 'status'),
             'flow_node_template_snapshot' => Arr::get($inputs, 'flow_node_template_snapshot'),

@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 use Service\Common\Base\BaseRepository;
 
 class FlowTemplateRepositories extends BaseRepository

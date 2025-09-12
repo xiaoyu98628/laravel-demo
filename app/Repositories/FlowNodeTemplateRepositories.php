@@ -7,7 +7,6 @@ namespace App\Repositories;
 use App\Models\FlowNodeTemplate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 use Service\Common\Base\BaseRepository;
 
 class FlowNodeTemplateRepositories extends BaseRepository

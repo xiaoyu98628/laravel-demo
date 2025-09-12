@@ -41,7 +41,9 @@ class PartnerFactory extends TypeFactory implements TypeInterface
     public function generateFlow(array $inputs): array
     {
         return [
-            'parent_id'                   => Arr::get($inputs, 'parent_id'),
+            'parent_flow_id'              => Arr::get($inputs, 'parent_flow_id'),
+            'parent_node_id'              => Arr::get($inputs, 'parent_node_id'),
+            'level'                       => Arr::get($inputs, 'level'),
             'title'                       => $this->generateName($inputs),
             'business_type'               => BusinessType::PARTNER->value,
             'business_id'                 => Arr::get($inputs, 'business_id'),
