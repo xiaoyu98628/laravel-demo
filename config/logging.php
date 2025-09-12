@@ -63,14 +63,14 @@ return [
 
         'single' => [
             'driver'               => 'single',
-            'path'                 => storage_path('logs/laravel.log'),
+            'path'                 => storage_path('logs/'.date('Y-m-d').'/laravel.log'),
             'level'                => env('LOG_LEVEL', 'debug'),
             'replace_placeholders' => true,
         ],
 
         'daily' => [
             'driver'               => 'daily',
-            'path'                 => storage_path('logs/laravel.log'),
+            'path'                 => storage_path('logs/'.date('Y-m-d').'/laravel.log'),
             'level'                => env('LOG_LEVEL', 'debug'),
             'days'                 => env('LOG_DAILY_DAYS', 14),
             'replace_placeholders' => true,
@@ -127,7 +127,7 @@ return [
         ],
 
         'emergency' => [
-            'path' => storage_path('logs/laravel.log'),
+            'path' => storage_path('logs/'.date('Y-m-d').'/laravel.log'),
         ],
 
         'exception' => [
@@ -155,14 +155,14 @@ return [
 
         'callback' => [
             'driver'     => 'single',
-            'path'       => storage_path('logs/'.env('APP_NAME', 'junlian-user-service').'/callback.log'),
+            'path'       => storage_path('logs/'.date('Y-m-d').'/callback.log'),
             'level'      => env('LOG_LEVEL', 'debug'),
             'permission' => 0666,
             'tap'        => [CustomLogFormat::class],
         ],
         'laravel' => [
             'driver'     => 'single',
-            'path'       => storage_path('logs/'.env('APP_NAME', 'junlian-user-service').'/laravel.log'),
+            'path'       => storage_path('logs/'.date('Y-m-d').'/laravel.log'),
             'level'      => env('LOG_LEVEL', 'debug'),
             'permission' => 0666,
             'tap'        => [CustomLogFormat::class],
@@ -170,7 +170,7 @@ return [
 
         'rpc' => [
             'driver'               => 'single',
-            'path'                 => storage_path('logs/'.env('APP_NAME', 'junlian-user-service').'/rpc.log'),
+            'path'                 => storage_path('logs/'.date('Y-m-d').'/rpc.log'),
             'level'                => env('LOG_LEVEL', 'debug'),
             'replace_placeholders' => true,
             'permission'           => 0666,
