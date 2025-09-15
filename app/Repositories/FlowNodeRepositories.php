@@ -29,15 +29,15 @@ class FlowNodeRepositories extends BaseRepository
         }
 
         return $this->query()->create([
-            'parent_id'   => Arr::get($inputs, 'parent_id'),
-            'depth'       => Arr::get($inputs, 'depth'),
-            'name'        => Arr::get($inputs, 'name'),
-            'type'        => Arr::get($inputs, 'type'),
-            'rules'       => Arr::get($inputs, 'rules'),
-            'status'      => Arr::get($inputs, 'status'),
-            'callback'    => empty($inputs['callback']) ? null : $inputs['callback'],
-            'approval_id' => Arr::get($inputs, 'approval_id'),
-            'extend'      => Arr::get($inputs, 'extend'),
+            'parent_id' => Arr::get($inputs, 'parent_id'),
+            'depth'     => Arr::get($inputs, 'depth'),
+            'name'      => Arr::get($inputs, 'name'),
+            'type'      => Arr::get($inputs, 'type'),
+            'rules'     => Arr::get($inputs, 'rules'),
+            'status'    => Arr::get($inputs, 'status'),
+            'callback'  => empty($inputs['callback']) ? null : $inputs['callback'],
+            'flow_id'   => Arr::get($inputs, 'flow_id'),
+            'extend'    => Arr::get($inputs, 'extend'),
         ]);
     }
 
