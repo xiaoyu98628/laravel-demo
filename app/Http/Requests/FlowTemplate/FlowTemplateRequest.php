@@ -28,7 +28,7 @@ class FlowTemplateRequest extends FormRequest
     {
         return match (Str::lower($this->method())) {
             HttpRequest::POST, HttpRequest::PUT => [
-                'type'          => 'required|string|max:50',
+                'type'          => 'required|string|max:50|in:'.implode(',', Type::values()),
                 'name'          => 'required|string|max:50',
                 'callback'      => 'array|required_if:flow_code,'.implode(',', Type::needCallback()),
                 'remark'        => 'nullable|string|max:255',
@@ -51,6 +51,7 @@ class FlowTemplateRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'type.in'                => '模版类型错误',
             'callback.array'         => '回调配置类型错误',
             'callback.required_if'   => '回调配置不能为空',
             'node_template.required' => '节点不能为空',
