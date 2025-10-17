@@ -12,6 +12,7 @@ enum Status: string
 
     case CREATE  = 'create';
     case PROCESS = 'process';
+    case WAITING = 'waiting';
     case SUCCESS = 'success';
     case REJECT  = 'reject';
     case CANCEL  = 'cancel';
@@ -25,6 +26,7 @@ enum Status: string
         return match ($this) {
             self::CREATE  => '创建',
             self::PROCESS => '进行中',
+            self::WAITING => '等待',
             self::SUCCESS => '通过',
             self::REJECT  => '驳回',
             self::CANCEL  => '取消',
