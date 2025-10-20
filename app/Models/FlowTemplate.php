@@ -60,6 +60,6 @@ class FlowTemplate extends BaseModel
      */
     public function nodeTemplate(): HasOne
     {
-        return $this->hasOne(FlowNodeTemplate::class, 'flow_template_id', 'id');
+        return $this->hasOne(FlowNodeTemplate::class, 'flow_template_id', 'id')->whereNull('parent_id');
     }
 }

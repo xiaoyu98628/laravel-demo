@@ -26,7 +26,7 @@ readonly class FlowService
     {
         DB::beginTransaction();
         try {
-            $this->flowBuilder->build($inputs);
+            $this->flowBuilder->build($type, $inputs);
 
             DB::commit();
 

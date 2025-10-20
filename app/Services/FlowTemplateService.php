@@ -69,7 +69,7 @@ readonly class FlowTemplateService
         $model = $this->repositories->query()
             ->where('id', $id)
             ->with([
-                'nodeTemplate' => fn ($query) => $query->whereNull('parent_id')->with(['children', 'conditionNode']),
+                'nodeTemplate' => fn ($query) => $query->with(['children', 'conditionNode']),
             ])->first();
 
         if (empty($model)) {

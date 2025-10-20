@@ -132,14 +132,14 @@ return [
 
         'exception' => [
             'driver'     => 'single',
-            'path'       => storage_path('logs/'.env('APP_NAME', 'junlian-user-service').'/exception.log'),
+            'path'       => storage_path('logs/'.date('Y-m-d').'/exception.log'),
             'level'      => env('LOG_LEVEL', 'debug'),
             'permission' => 0666,
             'tap'        => [CustomLogFormat::class],
         ],
         'db' => [
             'driver'     => 'single',
-            'path'       => storage_path('logs/'.env('APP_NAME', 'junlian-user-service').'/db.log'),
+            'path'       => storage_path('logs/'.date('Y-m-d').'/db.log'),
             'level'      => env('LOG_LEVEL', 'debug'),
             'permission' => 0666,
             'tap'        => [CustomLogFormat::class],
@@ -147,7 +147,7 @@ return [
 
         'handle' => [
             'driver'     => 'single',
-            'path'       => storage_path('logs/'.env('APP_NAME', 'junlian-user-service').'/handle.log'),
+            'path'       => storage_path('logs/'.date('Y-m-d').'/handle.log'),
             'level'      => env('LOG_LEVEL', 'debug'),
             'permission' => 0666,
             'tap'        => [CustomLogFormat::class],

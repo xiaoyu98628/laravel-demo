@@ -22,7 +22,7 @@ readonly class FlowFactory
     public function make(string $type): FlowTypeStrategyInterface
     {
         return match ($type) {
-            BusinessType::PARTNER->value => $this->financeStrategy,
+            BusinessType::FINANCE->value => $this->financeStrategy,
             default                      => throw new \Exception('未知的审批类型'),
         };
     }
