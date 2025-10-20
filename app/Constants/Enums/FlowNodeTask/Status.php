@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace App\Constants\Enums\FlowNodeTask;
 
-enum Status: string
+use App\Constants\Enums\BaseEnumTrait;
+use App\Constants\Enums\EnumInterface;
+
+enum Status: string implements EnumInterface
 {
+    use BaseEnumTrait;
+
     case PROCESS = 'process';
     case APPROVE = 'approve';
     case REJECT  = 'reject';

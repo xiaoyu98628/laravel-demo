@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Constants\Enums\Flow;
 
 use App\Constants\Enums\BaseEnumTrait;
+use App\Constants\Enums\EnumInterface;
 
-enum Level: string
+enum Level: string implements EnumInterface
 {
     use BaseEnumTrait;
 

@@ -3,8 +3,9 @@
 namespace App\Constants\Enums\Flow;
 
 use App\Constants\Enums\BaseEnumTrait;
+use App\Constants\Enums\EnumInterface;
 
-enum BusinessType: string
+enum BusinessType: string implements EnumInterface
 {
     use BaseEnumTrait;
 

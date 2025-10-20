@@ -3,8 +3,9 @@
 namespace App\Constants\Enums\FlowNode;
 
 use App\Constants\Enums\BaseEnumTrait;
+use App\Constants\Enums\EnumInterface;
 
-enum Method: string
+enum Method: string implements EnumInterface
 {
     use BaseEnumTrait;
 

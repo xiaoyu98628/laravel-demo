@@ -2,6 +2,8 @@
 
 namespace App\Constants\Enums;
 
+use Illuminate\Support\Arr;
+
 trait BaseEnumTrait
 {
     /**
@@ -10,6 +12,6 @@ trait BaseEnumTrait
      */
     public static function values(): array
     {
-        return array_column(self::cases(), 'value');
+        return Arr::pluck(self::cases(), 'value');
     }
 }
