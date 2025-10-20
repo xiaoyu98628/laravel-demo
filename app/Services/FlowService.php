@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Flow1\Builder;
+use App\Flow\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Service\Common\Library\Response\ApiResponse;
@@ -26,14 +26,7 @@ readonly class FlowService
     {
         DB::beginTransaction();
         try {
-            $builder = $this->flowBuilder->setType($type)->setInputs($inputs)->getTemplate();
-
-            // 创建流程
-            $builder->flow();
-            // 创建节点
-            $builder->node();
-            // 创建任务
-            $builder->task();
+            $this->flowBuilder->build($inputs);
 
             DB::commit();
 
