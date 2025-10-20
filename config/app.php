@@ -127,40 +127,4 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store'  => env('APP_MAINTENANCE_STORE', 'database'),
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Autoloaded Service Providers
-    |--------------------------------------------------------------------------
-    |
-    | The service providers listed here will be automatically loaded on the
-    | request to your application. Feel free to add your own services to
-    | this array to grant expanded functionality to your applications.
-    |
-    */
-
-    'providers' => ServiceProvider::defaultProviders()->merge([
-        // Package Service Providers...
-        \Service\Common\Library\Response\ApiResponseProvider::class, // API返回
-        \Service\Common\Library\Annotations\Provider\ContractBindServiceProvider::class, // 注册契约绑定注解
-        \Service\Common\Library\Rpc\RpcServiceProvider::class, // 注册远程过程调用RPC
-        \Service\Common\Library\Driver\HttpModelServiceProvider::class, // 注册http模型
-        \Service\Common\Library\Tools\ToolsResponseProvider::class, // 注册工具包
-    ])->toArray(),
-
-    /*
-   |--------------------------------------------------------------------------
-   | Class Aliases
-   |--------------------------------------------------------------------------
-   |
-   | This array of class aliases will be registered when this application
-   | is started. You may add any additional class aliases which should
-   | be loaded to the array. For speed, all aliases are lazy loaded.
-   |
-   */
-
-    'aliases' => Facade::defaultAliases()->merge([
-        'ApiResponse' => \Service\Common\Library\Response\ApiResponse::class,
-        // 'Example' => App\Facades\Example::class,
-    ])->toArray(),
 ];
