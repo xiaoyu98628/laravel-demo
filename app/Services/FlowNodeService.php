@@ -11,16 +11,6 @@ use Service\Common\Library\Response\ApiResponse;
 readonly class FlowNodeService
 {
     public function __construct(
-        private readonly FlowNodeRepositories $repositories,
+        private FlowNodeRepositories $repositories,
     ) {}
-
-    public function create(string $type, array $inputs): JsonResponse
-    {
-        try {
-            return ApiResponse::success();
-        } catch (\Exception $e) {
-            return ApiResponse::fail(message: $e->getMessage());
-        }
-
-    }
 }

@@ -14,13 +14,18 @@ readonly class FlowNodeTaskService
         private FlowNodeTaskRepositories $repositories,
     ) {}
 
-    public function create(string $type, array $inputs): JsonResponse
+    /**
+     * 审批
+     * @param  string  $id
+     * @param  array  $inputs
+     * @return JsonResponse
+     */
+    public function approve(string $id, array $inputs): JsonResponse
     {
         try {
             return ApiResponse::success();
         } catch (\Exception $e) {
             return ApiResponse::fail(message: $e->getMessage());
         }
-
     }
 }
