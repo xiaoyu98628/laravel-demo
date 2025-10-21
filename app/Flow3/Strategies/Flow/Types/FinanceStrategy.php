@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Flow\Strategies\Flow\Types;
+namespace App\Flow3\Strategies\Flow\Types;
 
 use App\Constants\Enums\Flow\BusinessType;
 use App\Constants\Enums\Flow\Level;
 use App\Constants\Enums\Flow\Status;
-use App\Flow\Contracts\FlowTypeStrategyInterface;
+use App\Flow3\Contracts\FlowTypeStrategyInterface;
 use Illuminate\Support\Arr;
 
 final class FinanceStrategy extends TypeStrategy implements FlowTypeStrategyInterface

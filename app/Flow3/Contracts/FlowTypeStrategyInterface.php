@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Flow\Contracts;
+namespace App\Flow3\Contracts;
 
 use App\Models\FlowNodeTemplate;
 use App\Models\FlowTemplate;

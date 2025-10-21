@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Flow\Factory;
+namespace App\Flow3\Factory;
 
 use App\Constants\Enums\Flow\BusinessType;
-use App\Flow\Contracts\FlowTypeStrategyInterface;
-use App\Flow\Strategies\Flow\Types\FinanceStrategy;
+use App\Flow3\Contracts\FlowTypeStrategyInterface;
+use App\Flow3\Strategies\Flow\Types\FinanceStrategy;
 
 readonly class FlowFactory
 {

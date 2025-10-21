@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Flow\Strategies\Flow\Types;
+namespace App\Flow3\Strategies\Flow\Types;
 
 use App\Constants\Enums\Flow\Status as FlowStatus;
 use App\Constants\Enums\FlowTemplate\Status as FlowTemplateStatus;

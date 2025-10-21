@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Flow;
+namespace App\Flow3;
 
-use App\Flow\Factory\FlowFactory;
+use App\Flow3\Factory\FlowFactory;
 use App\Repositories\FlowRepositories;
 
 final readonly class Builder
