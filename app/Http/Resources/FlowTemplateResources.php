@@ -13,7 +13,7 @@ class FlowTemplateResources extends BaseResource
     public function getWithFields(Request $request): array
     {
         return [
-            'node_template' => $this->nodeTemplate ? new FlowNodeTemplateResources($this->nodeTemplate) : null,
+            'node_template' => new FlowNodeTemplateResources($this->whenLoaded('nodeTemplate')),
         ];
     }
 

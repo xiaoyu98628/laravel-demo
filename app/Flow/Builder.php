@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Flow;
 
 use App\Flow\Factory\FlowFactory;
+use App\Repositories\FlowRepositories;
 
 final readonly class Builder
 {
     public function __construct(
-        private FlowFactory $flowFactory
+        private FlowRepositories $repositories,
+        private FlowFactory $flowFactory,
     ) {}
 
     /**
@@ -22,9 +24,11 @@ final readonly class Builder
         $factory  = $this->flowFactory->make($type);
         $template = $factory->flowTemplate($inputs);
 
-        $flow = $factory->buildFlow($inputs);
+        dd(123);
 
-        dd($flow);
+
+        // 存储审批流程数据
+        $this->repositories->store($factory->buildFlow($inputs));
 
     }
 }
