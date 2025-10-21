@@ -13,6 +13,6 @@ Route::group([
 
     Route::controller(FlowController::class)->as('flow.')->prefix('flow')->group(function () {
         Route::post('{type}', 'create')->name('create')->where('type', BusinessType::pattern());
+        Route::post('{id}/submit', 'submit')->name('submit');
     });
-
 });
