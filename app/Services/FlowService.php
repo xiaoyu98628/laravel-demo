@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Flow\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Service\Common\Library\Response\ApiResponse;
@@ -12,7 +11,6 @@ use Service\Common\Library\Response\ApiResponse;
 readonly class FlowService
 {
     public function __construct(
-        private Builder $flowBuilder,
     ) {}
 
     /**
@@ -26,7 +24,6 @@ readonly class FlowService
     {
         DB::beginTransaction();
         try {
-            $this->flowBuilder->build($type, $inputs);
 
             DB::commit();
 
