@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $id
  * @property string $parent_id
  * @property string $type
- * @property string $depth
+ * @property int $depth
+ * @property int $priority
  * @property string $name
  * @property string $rules
  * @property string $status
@@ -37,6 +38,7 @@ class FlowNode extends BaseModel
         'id',
         'parent_id',
         'depth',
+        'priority',
         'name',
         'type',
         'rules',
@@ -52,7 +54,8 @@ class FlowNode extends BaseModel
     protected array $resource = [
         'id'         => 'string',
         'parent_id'  => 'string',
-        'depth'      => 'string',
+        'depth'      => 'int',
+        'priority'   => 'int',
         'name'       => 'string',
         'type'       => 'string',
         'rules'      => 'array',
