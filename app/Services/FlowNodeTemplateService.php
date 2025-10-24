@@ -72,7 +72,6 @@ readonly class FlowNodeTemplateService
         $nodeTemplate['rules']            = $this->formatRules(Arr::get($nodeTemplate, 'rules', []));
 
         if (empty($nodeTemplate['id'])) {
-            /** @var FlowNodeTemplate $model */
             $model = $this->repositories->store($nodeTemplate);
 
             return $model->id;

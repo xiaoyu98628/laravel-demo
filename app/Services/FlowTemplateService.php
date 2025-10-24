@@ -44,7 +44,6 @@ readonly class FlowTemplateService
     {
         DB::beginTransaction();
         try {
-            /** @var FlowTemplate $model */
             $model = $this->repositories->store($inputs);
 
             $this->flowNodeTemplateService->handleNodeTemplateTree($model->id, Arr::get($inputs, 'node_template', []));

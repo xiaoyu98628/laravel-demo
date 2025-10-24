@@ -7,7 +7,6 @@ namespace App\Repositories;
 use App\Constants\Enums\FlowTemplate\Status;
 use App\Models\FlowTemplate;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
 use Service\Common\Base\BaseRepository;
@@ -53,10 +52,10 @@ class FlowTemplateRepositories extends BaseRepository
     /**
      * 创建
      * @param  array  $inputs
-     * @return Model
+     * @return FlowTemplate
      * @throws \Exception
      */
-    public function store(array $inputs): Model
+    public function store(array $inputs): FlowTemplate
     {
         if (empty($inputs)) {
             throw new \Exception('参数错误');

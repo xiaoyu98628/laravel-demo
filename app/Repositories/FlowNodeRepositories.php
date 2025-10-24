@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\FlowNode;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Service\Common\Base\BaseRepository;
 
@@ -19,10 +18,10 @@ class FlowNodeRepositories extends BaseRepository
     /**
      * 创建
      * @param  array  $inputs
-     * @return Model
+     * @return FlowNode
      * @throws \Exception
      */
-    public function store(array $inputs): Model
+    public function store(array $inputs): FlowNode
     {
         if (empty($inputs)) {
             throw new \Exception('参数错误');
