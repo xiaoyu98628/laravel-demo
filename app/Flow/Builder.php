@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Flow4;
+namespace App\Flow;
 
 /**
  * Builder 负责将 FlowTemplate 转为 Flow 实例
