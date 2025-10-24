@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Flow\Factories;
+namespace App\Flow4\Factories;
 
 use App\Constants\Enums\Flow\BusinessType;
 
