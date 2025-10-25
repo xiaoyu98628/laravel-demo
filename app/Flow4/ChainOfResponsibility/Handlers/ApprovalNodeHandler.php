@@ -6,7 +6,6 @@ namespace App\Flow4\ChainOfResponsibility\Handlers;
 
 use App\Flow4\ChainOfResponsibility\AbstractNodeHandler;
 use App\Flow4\Engine\FlowContext;
-use App\Flow4\Factory\FlowFactoryInterface;
 use App\Models\FlowNode;
 
 /**
@@ -30,7 +29,7 @@ class ApprovalNodeHandler extends AbstractNodeHandler
         $strategy = $this->getApprovalStrategy($flow->business_type);
 
         // 验证审批条件
-        if (!$strategy->validate($flow, $node, $data)) {
+        if (! $strategy->validate($flow, $node, $data)) {
             throw new \InvalidArgumentException('审批条件验证失败');
         }
 
@@ -45,10 +44,10 @@ class ApprovalNodeHandler extends AbstractNodeHandler
 
     private function getApprovalStrategy(string $businessType): \App\Flow4\Strategy\ApprovalStrategyInterface
     {
-        $strategyClass = "App\\Flow\\Strategy\\Strategies\\" . ucfirst($businessType) . "ApprovalStrategy";
+        $strategyClass = 'App\\Flow\\Strategy\\Strategies\\'.ucfirst($businessType).'ApprovalStrategy';
 
-        if (!class_exists($strategyClass)) {
-            $strategyClass = "App\\Flow\\Strategy\\Strategies\\GeneralApprovalStrategy";
+        if (! class_exists($strategyClass)) {
+            $strategyClass = 'App\\Flow\\Strategy\\Strategies\\GeneralApprovalStrategy';
         }
 
         return app($strategyClass);
@@ -58,11 +57,11 @@ class ApprovalNodeHandler extends AbstractNodeHandler
     {
         // 根据审批方式判断节点是否完成
         $approvalMethod = $node->rules['approval_method'] ?? 'any';
-        $approvers = $node->rules['approvers'] ?? [];
+        $approvers      = $node->rules['approvers']       ?? [];
 
         return match ($approvalMethod) {
-            'all' => $strategy->handleCountersign($node, $approvers),
-            'any' => $strategy->handleParallelSign($node, $approvers),
+            'all'   => $strategy->handleCountersign($node, $approvers),
+            'any'   => $strategy->handleParallelSign($node, $approvers),
             default => true
         };
     }
@@ -71,7 +70,7 @@ class ApprovalNodeHandler extends AbstractNodeHandler
     {
         // 更新节点状态
         app(\App\Repositories\FlowNodeRepositories::class)->update($node->id, [
-            'status' => 'approve'
+            'status' => 'approve',
         ]);
 
         // 流转到下一个节点
@@ -97,7 +96,7 @@ class ApprovalNodeHandler extends AbstractNodeHandler
     {
         $flow = $context->getFlow();
         app(\App\Repositories\FlowRepositories::class)->update($flow->id, [
-            'status' => 'success'
+            'status' => 'success',
         ]);
 
         $context->setState($context->getSuccessState());
