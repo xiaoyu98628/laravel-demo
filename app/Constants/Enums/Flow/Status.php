@@ -11,12 +11,15 @@ enum Status: string implements EnumInterface
 {
     use BaseEnumTrait;
 
-    case CREATE  = 'create';
-    case PROCESS = 'process';
-    case WAITING = 'waiting';
-    case SUCCESS = 'success';
-    case REJECT  = 'reject';
-    case CANCEL  = 'cancel';
+    // 进行时状态（正在处理）
+    case PROCESSING = 'processing';
+    case WAITING    = 'waiting';
+
+    // 过去式状态（已完成处理）
+    case CREATED  = 'created';
+    case APPROVED = 'approved';
+    case REJECTED = 'rejected';
+    case CANCELED = 'canceled';
 
     /**
      * 获取用户友好的标签
@@ -25,12 +28,12 @@ enum Status: string implements EnumInterface
     public function label(): string
     {
         return match ($this) {
-            self::CREATE  => '创建',
-            self::PROCESS => '进行中',
-            self::WAITING => '等待',
-            self::SUCCESS => '通过',
-            self::REJECT  => '驳回',
-            self::CANCEL  => '取消',
+            self::CREATED    => '已创建',
+            self::PROCESSING => '进行中',
+            self::WAITING    => '等待中',
+            self::APPROVED   => '已通过',
+            self::REJECTED   => '已驳回',
+            self::CANCELED   => '已取消',
         };
     }
 }

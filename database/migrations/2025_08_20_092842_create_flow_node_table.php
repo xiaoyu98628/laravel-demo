@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Helpers\MigrationHelper;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -20,7 +22,14 @@ return new class extends Migration
             $table->string('name')->comment('节点名称');
             $table->enum('type', ['start', 'condition', 'condition_route', 'approval', 'cc', 'subflow', 'end'])->comment('类型[start:开始节点,condition:条件节点,condition_route:条件路由节点,approval:审核节点,cc:抄送节点,subflow:子流程节点,end:结束节点]');
             $table->json('rules')->comment('审批规则');
-            $table->enum('status', ['process', 'approve', 'reject', 'skip', 'auto', 'cancel'])->comment('状态[process:审批中,approve:通过,reject:驳回,skip:跳过,auto:自动,cancel:取消]');
+            $table->enum('status', [
+                'processing',
+                'approved',
+                'rejected',
+                'skipped',
+                'auto',
+                'canceled',
+            ])->comment('状态[processing:审批中,approved:已通过,rejected:已驳回,skipped:已跳过,auto:自动处理,canceled:已取消]');
             $table->json('callback')->nullable()->comment('回调');
             $table->ulid('flow_id')->comment('审批id');
             $table->json('extend')->nullable()->comment('额外信息');

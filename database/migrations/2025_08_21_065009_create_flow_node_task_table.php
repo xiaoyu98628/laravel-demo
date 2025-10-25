@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Helpers\MigrationHelper;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -18,7 +20,17 @@ return new class extends Migration
             $table->string('approver_name')->comment('审批人名称');
             $table->string('approver_type')->comment('审批人类型');
             $table->json('operation_info')->nullable()->comment('操作信息');
-            $table->enum('status', ['process', 'approve', 'reject', 'skip', 'auto', 'cancel'])->comment('状态[process:审批中,approve:通过,reject:驳回,skip:跳过,auto:自动,cancel:取消]');
+            $table->enum('status', [
+                'pending',
+                'approved',
+                'rejected',
+                'transferred',
+                'forwarded',
+                'add_signed',
+                'skipped',
+                'auto',
+                'canceled',
+            ])->comment('状态[pending:待处理,approved:已同意,rejected:已拒绝,transferred:已转交,forwarded:已转交,add_signed:已加签,skipped:已跳过,auto:自动处理,canceled:已取消]');
             $table->ulid('flow_node_id')->comment('审批节点id');
             $table->json('extend')->nullable()->comment('额外信息');
             MigrationHelper::createAndAdmin($table);

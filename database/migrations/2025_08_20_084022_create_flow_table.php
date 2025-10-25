@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Helpers\MigrationHelper;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -21,7 +23,14 @@ return new class extends Migration
             $table->ulid('parent_node_id')->nullable()->comment('父级节点id');
             $table->enum('level', ['main', 'subflow'])->comment('层级[main:主流程,subflow:子流程]');
             $table->json('business_snapshot')->nullable()->comment('业务快照');
-            $table->enum('status', ['create', 'process', 'waiting', 'success', 'reject', 'cancel'])->comment('状态[create:创建,process:进行中,waiting:等待,success:通过,reject:驳回,cancel:取消]');
+            $table->enum('status', [
+                'created',
+                'processing',
+                'waiting',
+                'approved',
+                'rejected',
+                'canceled',
+            ])->comment('状态[created:已创建,processing:进行中,waiting:等待中,approved:已通过,rejected:已驳回,canceled:已取消]');
             $table->json('flow_node_template_snapshot')->nullable()->comment('流程节点模版快照');
             $table->json('callback')->nullable()->comment('回调');
             $table->enum('applicant_type', ['user', 'admin'])->default('user')->comment('申请人类型[user:用户,admin:管理员]');
