@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Flow4\Strategy;
 
-use App\Constants\Enums\FlowNode\Mode;
 use App\Constants\Enums\FlowNodeTask\Status as TaskStatus;
 use App\Models\Flow;
 use App\Models\FlowNode;
@@ -18,6 +17,7 @@ use App\Repositories\FlowNodeTaskRepositories;
 abstract class AbstractApprovalStrategy implements ApprovalStrategyInterface
 {
     protected FlowNodeRepositories $nodeRepository;
+
     protected FlowNodeTaskRepositories $taskRepository;
 
     public function __construct(
@@ -79,7 +79,7 @@ abstract class AbstractApprovalStrategy implements ApprovalStrategyInterface
 
         $approvedCount = $tasks->where('status', TaskStatus::APPROVE->value)->count();
         $rejectedCount = $tasks->where('status', TaskStatus::REJECT->value)->count();
-        $totalCount = $tasks->count();
+        $totalCount    = $tasks->count();
 
         // 如果所有人都驳回，节点驳回
         if ($rejectedCount === $totalCount) {
@@ -98,7 +98,7 @@ abstract class AbstractApprovalStrategy implements ApprovalStrategyInterface
         $approverId = $data['approver_id'] ?? '';
 
         // 检查审批人是否在节点的审批人列表中
-        $rules = $node->rules ?? [];
+        $rules     = $node->rules            ?? [];
         $approvers = $rules['approvers'] ?? [];
 
         return in_array($approverId, array_column($approvers, 'id'));
@@ -111,6 +111,7 @@ abstract class AbstractApprovalStrategy implements ApprovalStrategyInterface
     {
         // 从流程快照中找到下一个节点
         $snapshot = $flow->flow_node_template_snapshot ?? [];
+
         return $this->findNextNodeFromSnapshot($snapshot, $currentNode);
     }
 
