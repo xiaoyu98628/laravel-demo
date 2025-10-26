@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace other\Flow3\Strategies\Flow\Types;
 
-use App\Constants\Enums\Flow\BusinessType;
 use App\Constants\Enums\Flow\Level;
 use Illuminate\Support\Arr;
 use other\Flow3\Contracts\FlowTypeStrategyInterface;
 
 final class FinanceStrategy extends TypeStrategy implements FlowTypeStrategyInterface
 {
-    public static string $type = BusinessType::FINANCE->value;
+    public static string $type = '';
 
     /**
      * 构建标题
