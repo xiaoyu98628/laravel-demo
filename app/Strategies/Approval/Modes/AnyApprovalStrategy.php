@@ -19,7 +19,7 @@ class AnyApprovalStrategy extends AbstractApprovalModeStrategy
      * @param  string  $mode
      * @return bool
      */
-    public function supports(string $mode): bool
+    public static function supports(string $mode): bool
     {
         return $mode == Mode::Any->value;
     }
