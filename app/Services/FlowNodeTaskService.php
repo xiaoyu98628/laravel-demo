@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Repositories\FlowNodeTaskRepositories;
 use Illuminate\Http\JsonResponse;
 use Service\Common\Library\Response\ApiResponse;
 
 readonly class FlowNodeTaskService
 {
-    public function __construct(
-        private FlowNodeTaskRepositories $repositories,
-    ) {}
+    public function __construct() {}
 
     /**
      * 审批
