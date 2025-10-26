@@ -23,4 +23,14 @@ class SequentialApprovalStrategy extends AbstractApprovalModeStrategy
     {
         return $mode == Mode::SEQUENTIAL->value;
     }
+
+    /**
+     * 检查当前节点下任务是否满足通过条件
+     * @param  FlowNode  $node
+     * @return bool
+     */
+    public function isApproved(FlowNode $node): bool
+    {
+        // TODO: Implement isApproved() method.
+    }
 }
