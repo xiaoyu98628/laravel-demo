@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Factories;
 
 use App\Constants\Enums\Flow\BusinessType;
+use App\Strategies\Flow\Types\GeneralFlowStrategy;
 
 /**
  * 审批流类型工厂
@@ -16,7 +17,7 @@ class FlowTypeFactory
     {
         return match ($type) {
             BusinessType::PROJECT->value => '',
-            default                      => '123',
+            default                      => app(GeneralFlowStrategy::class),
         };
     }
 }
