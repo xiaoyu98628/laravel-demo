@@ -18,7 +18,7 @@ class FlowTypeFactory
     {
         return match ($type) {
             Type::GENERAL->value => app(GeneralFlowStrategy::class),
-            default              => throw new \InvalidArgumentException("不支持的节点类型: {$type}"),
+            default              => throw new \InvalidArgumentException("不支持的流程类型: {$type}"),
         };
     }
 }
