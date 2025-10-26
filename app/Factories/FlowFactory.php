@@ -7,7 +7,8 @@ namespace App\Factories;
 use App\Constants\Enums\Flow\BusinessType;
 
 /**
- * FlowFactory 负责动态获取流程对象
+ * 审批流类型工厂
+ * Class FlowFactory
  */
 class FlowFactory
 {
