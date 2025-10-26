@@ -13,12 +13,20 @@ use App\Constants\Enums\Flow\Type;
 class GeneralFlowStrategy extends AbstractFlowTypeStrategy
 {
     /**
-     * 是否支持
-     * @param  string  $type
-     * @return bool
+     * @param  array  $inputs
+     * @return string
      */
-    public static function supports(string $type): bool
+    public function getTitle(array $inputs): string
     {
-        return $type == Type::GENERAL->value;
+        return $this->template->name;
+    }
+
+    /**
+     * 获取类型
+     * @return string
+     */
+    public static function getType(): string
+    {
+        return Type::GENERAL->value;
     }
 }

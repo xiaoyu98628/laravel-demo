@@ -14,7 +14,7 @@ use App\Strategies\Flow\Types\GeneralFlowStrategy;
  */
 class FlowTypeFactory
 {
-    public function make(string $type): FlowTypeInterface
+    public static function make(string $type): FlowTypeInterface
     {
         return match ($type) {
             Type::GENERAL->value => app(GeneralFlowStrategy::class),

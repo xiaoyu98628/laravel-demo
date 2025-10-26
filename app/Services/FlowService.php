@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Builders\FlowBuilder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Service\Common\Library\Response\ApiResponse;
 
 readonly class FlowService
 {
-    public function __construct() {}
+    public function __construct(
+        private FlowBuilder $flowBuilder,
+    ) {}
 
     /**
      * 创建审批流程
@@ -23,6 +26,8 @@ readonly class FlowService
     {
         DB::beginTransaction();
         try {
+
+            $this->flowBuilder->build($code, $inputs);
 
             DB::commit();
 

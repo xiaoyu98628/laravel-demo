@@ -16,7 +16,7 @@ use App\Strategies\Approval\Modes\SequentialApprovalStrategy;
  */
 class ApprovalStrategyFactory
 {
-    public function make(string $type): ApprovalModeInterface
+    public static function make(string $type): ApprovalModeInterface
     {
         return match ($type) {
             Mode::All->value        => app(AllApprovalStrategy::class),

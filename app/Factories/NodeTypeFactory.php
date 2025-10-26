@@ -14,7 +14,7 @@ use App\Strategies\Node\Types\StartNodeStrategy;
  */
 class NodeTypeFactory
 {
-    public function make(string $type): NodeTypeInterface
+    public static function make(string $type): NodeTypeInterface
     {
         return match ($type) {
             Type::START->value => app(StartNodeStrategy::class),
