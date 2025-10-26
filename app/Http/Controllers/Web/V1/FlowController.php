@@ -17,14 +17,14 @@ class FlowController extends Controller
 
     /**
      * 创建审批流程
-     * @param  string  $type
+     * @param  string  $code
      * @param  FlowRequest  $request
      * @return JsonResponse
      * @throws \Throwable
      */
-    public function create(string $type, FlowRequest $request)
+    public function create(string $code, FlowRequest $request)
     {
-        return $this->service->create($type, $request->all());
+        return $this->service->create($code, $request->all());
     }
 
     /**

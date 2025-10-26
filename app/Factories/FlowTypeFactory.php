@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Factories;
 
-use App\Constants\Enums\Flow\BusinessType;
+use App\Constants\Enums\Flow\Type;
+use App\Strategies\Flow\Contracts\FlowTypeInterface;
 use App\Strategies\Flow\Types\GeneralFlowStrategy;
 
 /**
@@ -13,11 +14,11 @@ use App\Strategies\Flow\Types\GeneralFlowStrategy;
  */
 class FlowTypeFactory
 {
-    public function make(string $type): string
+    public function make(string $type): FlowTypeInterface
     {
         return match ($type) {
-            BusinessType::PROJECT->value => '',
-            default                      => app(GeneralFlowStrategy::class),
+            Type::GENERAL->value => app(GeneralFlowStrategy::class),
+            default              => throw new \InvalidArgumentException("不支持的节点类型: {$type}"),
         };
     }
 }

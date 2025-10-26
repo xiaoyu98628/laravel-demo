@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Constants\Enums\Flow\BusinessType;
 use App\Http\Controllers\Web\V1\FlowController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,7 +11,7 @@ Route::group([
 ], function () {
 
     Route::controller(FlowController::class)->as('flow.')->prefix('flow')->group(function () {
-        Route::post('{type}', 'create')->name('create')->where('type', BusinessType::pattern());
+        Route::post('{code}', 'create')->name('create');
         Route::post('{id}/submit', 'submit')->name('submit');
     });
 });

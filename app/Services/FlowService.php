@@ -14,12 +14,12 @@ readonly class FlowService
 
     /**
      * 创建审批流程
-     * @param  string  $type
+     * @param  string  $code
      * @param  array  $inputs
      * @return JsonResponse
      * @throws \Throwable
      */
-    public function create(string $type, array $inputs): JsonResponse
+    public function create(string $code, array $inputs): JsonResponse
     {
         DB::beginTransaction();
         try {
