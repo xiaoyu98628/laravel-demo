@@ -38,25 +38,6 @@ class FlowNodeTemplate extends BaseModel
         'callback' => 'json',
     ];
 
-    protected $fillable = [
-        'id',
-        'parent_id',
-        'depth',
-        'priority',
-        'name',
-        'description',
-        'type',
-        'rules',
-        'callback',
-        'flow_template_id',
-        'created_at',
-        'created_admin_id',
-        'updated_at',
-        'updated_admin_id',
-        'deleted_at',
-        'deleted_admin_id',
-    ];
-
     protected array $resource = [
         'id'               => 'string',
         'parent_id'        => 'string',

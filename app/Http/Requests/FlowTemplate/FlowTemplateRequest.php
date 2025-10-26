@@ -15,22 +15,16 @@ class FlowTemplateRequest extends FormRequest
      * 验证器之前的操作
      * @return void
      */
-    public function prepareForValidation(): void
-    {
-        $this->merge([
-            'callback' => in_array($this->input('type'), [Type::WORKFLOW->value, Type::PROJECT->value])
-                ? null
-                : $this->input('callback'),
-        ]);
-    }
+    public function prepareForValidation(): void {}
 
     public function rules(): array
     {
         return match (Str::lower($this->method())) {
             HttpRequest::POST, HttpRequest::PUT => [
-                'type'          => 'required|string|max:50|in:'.implode(',', Type::values()),
+                'type'          => 'required|string|in:'.implode(',', Type::values()),
+                'code'          => 'required|string|max:50',
                 'name'          => 'required|string|max:50',
-                'callback'      => 'array|required_if:flow_code,'.implode(',', Type::needCallback()),
+                'callback'      => 'array',
                 'remark'        => 'nullable|string|max:255',
                 'node_template' => 'required|array',
             ],
@@ -41,8 +35,9 @@ class FlowTemplateRequest extends FormRequest
     {
         return [
             'type'     => '类型',
+            'code'     => '标识',
             'name'     => '名称',
-            'callback' => '回调',
+            'callback' => '回调配置',
             'remark'   => '备注',
             'status'   => '状态',
         ];
@@ -53,7 +48,6 @@ class FlowTemplateRequest extends FormRequest
         return [
             'type.in'                => '模版类型错误',
             'callback.array'         => '回调配置类型错误',
-            'callback.required_if'   => '回调配置不能为空',
             'node_template.required' => '节点不能为空',
             'node_template.array'    => '节点配置错误',
         ];

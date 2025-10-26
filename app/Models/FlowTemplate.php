@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @property string $id
  * @property string $type
+ * @property string $code
  * @property string $name
  * @property array $callback
  * @property string $remark
@@ -31,24 +32,10 @@ class FlowTemplate extends BaseModel
         'callback' => 'json',
     ];
 
-    protected $fillable = [
-        'id',
-        'type',
-        'name',
-        'callback',
-        'remark',
-        'status',
-        'created_at',
-        'created_admin_id',
-        'updated_at',
-        'updated_admin_id',
-        'deleted_at',
-        'deleted_admin_id',
-    ];
-
     protected array $resource = [
         'id'       => 'string',
         'type'     => 'string',
+        'code'     => 'string',
         'name'     => 'string',
         'callback' => 'array',
         'remark'   => 'string',

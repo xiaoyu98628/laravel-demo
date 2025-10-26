@@ -63,6 +63,7 @@ class FlowTemplateRepositories extends BaseRepository
 
         return $this->query()->create([
             'type'     => Arr::get($inputs, 'type'),
+            'code'     => Arr::get($inputs, 'code'),
             'name'     => Arr::get($inputs, 'name'),
             'callback' => empty($inputs['callback']) ? null : $inputs['callback'],
             'remark'   => Arr::get($inputs, 'remark', ''),
@@ -87,6 +88,7 @@ class FlowTemplateRepositories extends BaseRepository
             'name'     => Arr::get($inputs, 'name'),
             'callback' => empty($inputs['callback']) ? null : $inputs['callback'],
             'remark'   => Arr::get($inputs, 'remark', ''),
+            'status'   => Status::DISABLE->value,
         ]);
     }
 }

@@ -34,23 +34,6 @@ class FlowNode extends BaseModel
         'extend'   => 'json',
     ];
 
-    protected $fillable = [
-        'id',
-        'parent_id',
-        'depth',
-        'priority',
-        'name',
-        'type',
-        'rules',
-        'status',
-        'callback',
-        'flow_id',
-        'extend',
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
-
     protected array $resource = [
         'id'         => 'string',
         'parent_id'  => 'string',

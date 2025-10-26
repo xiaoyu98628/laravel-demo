@@ -29,11 +29,12 @@ class FlowRepositories extends BaseRepository
 
         return $this->query()->create([
             'title'                       => Arr::get($inputs, 'title'),
-            'business_type'               => Arr::get($inputs, 'business_type'),
-            'business_id'                 => Arr::get($inputs, 'business_id'),
+            'type'                        => Arr::get($inputs, 'type'),
+            'code'                        => Arr::get($inputs, 'code'),
             'parent_flow_id'              => Arr::get($inputs, 'parent_flow_id'),
             'parent_node_id'              => Arr::get($inputs, 'parent_node_id'),
             'level'                       => Arr::get($inputs, 'level'),
+            'business_id'                 => Arr::get($inputs, 'business_id'),
             'business_snapshot'           => Arr::get($inputs, 'business_snapshot'),
             'status'                      => Arr::get($inputs, 'status'),
             'flow_node_template_snapshot' => Arr::get($inputs, 'flow_node_template_snapshot'),

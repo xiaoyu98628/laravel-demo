@@ -33,23 +33,6 @@ class FlowNodeTask extends BaseModel
         'extend'         => 'json',
     ];
 
-    protected $fillable = [
-        'id',
-        'approver_id',
-        'approver_name',
-        'approver_type',
-        'operation_info',
-        'status',
-        'flow_node_id',
-        'extend',
-        'created_at',
-        'created_admin_id',
-        'updated_at',
-        'updated_admin_id',
-        'deleted_at',
-        'deleted_admin_id',
-    ];
-
     protected array $resource = [
         'id'               => 'string',
         'approver_id'      => 'string',
