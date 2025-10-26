@@ -8,9 +8,9 @@ use App\Constants\Enums\Flow\BusinessType;
 
 /**
  * 审批流类型工厂
- * Class FlowFactory
+ * Class FlowTypeFactory
  */
-class FlowFactory
+class FlowTypeFactory
 {
     public function make(string $type): string
     {
