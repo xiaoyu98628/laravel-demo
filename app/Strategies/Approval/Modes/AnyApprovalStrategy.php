@@ -31,6 +31,6 @@ class AnyApprovalStrategy extends AbstractApprovalModeStrategy
      */
     public function isApproved(FlowNode $node): bool
     {
-        // TODO: Implement isApproved() method.
+        return false;
     }
 }
