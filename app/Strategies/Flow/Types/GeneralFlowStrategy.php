@@ -13,10 +13,15 @@ use App\Constants\Enums\Flow\Type;
 class GeneralFlowStrategy extends AbstractFlowTypeStrategy
 {
     /**
-     * @param  array  $inputs
+     * 验证业务数据
+     * @return void
+     */
+    protected function validateBusinessData(): void {}
+
+    /**
      * @return string
      */
-    public function getTitle(array $inputs): string
+    protected function getTitle(): string
     {
         return $this->template->name;
     }
@@ -25,8 +30,18 @@ class GeneralFlowStrategy extends AbstractFlowTypeStrategy
      * 获取类型
      * @return string
      */
-    public static function getType(): string
+    protected static function getType(): string
     {
         return Type::GENERAL->value;
+    }
+
+    /**
+     * 模式是否支持
+     * @param  string  $type
+     * @return bool
+     */
+    public function supports(string $type): bool
+    {
+        return $type === self::getType();
     }
 }

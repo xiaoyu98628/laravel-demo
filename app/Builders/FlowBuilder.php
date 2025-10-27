@@ -55,7 +55,7 @@ final readonly class FlowBuilder
         // 返回 Flow 实例
         $factory = FlowTypeFactory::make($this->template->type);
 
-        $flowData = $factory->setTemplate($this->template)->buildFlowData($inputs);
+        $flowData = $factory->setInputs($inputs)->setTemplate($this->template)->build();
 
         dd($flowData);
 
