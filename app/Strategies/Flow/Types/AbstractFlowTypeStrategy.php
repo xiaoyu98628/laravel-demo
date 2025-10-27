@@ -6,15 +6,30 @@ namespace App\Strategies\Flow\Types;
 
 use App\Constants\Enums\Flow\Level;
 use App\Constants\Enums\Flow\Status;
+use App\Constants\Enums\FlowNode\Type;
 use App\Models\FlowTemplate;
+use App\Repositories\FlowTemplateRepositories;
 use App\Strategies\Flow\Contracts\FlowTypeInterface;
 use Illuminate\Support\Arr;
+use InvalidArgumentException;
 
 abstract class AbstractFlowTypeStrategy implements FlowTypeInterface
 {
     protected FlowTemplate $template;
 
     protected array $inputs;
+
+    public function __construct(
+        private FlowTemplateRepositories $flowTemplateRepositories,
+    ) {}
+
+    /**
+     * 统一初始化（方便链式使用）
+     */
+    public function initialize(FlowTemplate $template, array $inputs): static
+    {
+        return $this->setTemplate($template)->setInputs($inputs);
+    }
 
     /**
      * 设置模板
@@ -46,7 +61,7 @@ abstract class AbstractFlowTypeStrategy implements FlowTypeInterface
      */
     public function build(): array
     {
-        // 验证业务数据
+        $this->ensureInitialized();
         $this->validateBusinessData();
 
         return $this->getData();
@@ -66,7 +81,7 @@ abstract class AbstractFlowTypeStrategy implements FlowTypeInterface
             'parent_node_id'    => Arr::get($this->inputs, 'parent_node_id'),
             'level'             => Arr::get($this->inputs, 'level', Level::MAIN->value),
             'business_id'       => Arr::get($this->inputs, 'business_id'),
-            'business_snapshot' => $this->inputs,
+            'business_snapshot' => $this->getBusinessSnapshot(),
             'status'            => Status::CREATED->value,
             'template_snapshot' => $this->getTemplateSnapshot(),
             'callback'          => $this->template->callback,
@@ -77,34 +92,97 @@ abstract class AbstractFlowTypeStrategy implements FlowTypeInterface
         ];
     }
 
-    protected function getTemplateSnapshot(array $snapshot = []): array
+    protected function getTemplateSnapshot(array $template = [], array $templateSnapshot = []): array
     {
-        $template = $this->template->toArray();
+        if (empty($template)) {
+            $template = Arr::get($this->template->toArray(), 'node_template');
+        }
 
-        return [
-            Level::MAIN->value => [
-                'id'       => $template['id'],
-                'template' => $template,
-            ],
-            Level::SUBFLOW->value => [],
-        ];
+        match (Arr::get($template, 'type')) {
+            Type::CONDITION_ROUTE->value => value(function () use ($template, &$templateSnapshot) {
+                foreach (Arr::get($template, 'condition_node') as $conditionNode) {
+                    if (! empty(Arr::get($conditionNode, 'children', []))) {
+                        $templateSnapshot = [...$templateSnapshot, ...$this->getTemplateSnapshot(Arr::get($conditionNode, 'children', []))];
+                    }
+                }
+            }),
+            default => '',
+        };
+
+        if (Arr::get($template, 'type') == Type::SUBFLOW->value) {
+
+            $SubFlowTemplate = $this->flowTemplateRepositories->query()
+                ->with([
+                    'nodeTemplate' => fn ($query) => $query->whereNull('parent_id')->with(['children', 'conditionNode']),
+                ])->where('status', \App\Constants\Enums\FlowTemplate\Status::ENABLE->value)
+                ->where('id', Arr::get($template, 'rules.id'))
+                ->orderBy('id', 'desc')
+                ->firstOrFail();
+
+            $templateSnapshot[] = [
+                'id'       => Arr::get($template, 'rules.id'),
+                'node_id'  => Arr::get($template, 'id'),
+                'template' => $SubFlowTemplate->toArray(),
+            ];
+        }
+
+        if (! empty(Arr::get($template, 'children', []))) {
+            $templateSnapshot = [...$templateSnapshot, ...$this->getTemplateSnapshot(Arr::get($template, 'children', []))];
+        }
+
+        return $templateSnapshot;
     }
 
     /**
      * 验证业务数据
      * @return void
      */
-    abstract protected function validateBusinessData(): void;
+    protected function validateBusinessData(): void {}
+
+    /**
+     * 子类可以覆写此方法来自定义业务快照
+     */
+    protected function getBusinessSnapshot(): array
+    {
+        return $this->inputs;
+    }
+
+    /**
+     * 确保初始化完整
+     */
+    protected function ensureInitialized(): void
+    {
+        if (empty($this->template)) {
+            throw new InvalidArgumentException('流程模版未初始化');
+        }
+
+        if (empty($this->inputs)) {
+            throw new InvalidArgumentException('业务数据未初始化');
+        }
+    }
 
     /**
      * 获取类型
      * @return string
      */
-    abstract protected static function getType(): string;
+    abstract public static function getType(): string;
+
+    /**
+     * 模式是否支持
+     * @param  string  $type
+     * @return bool
+     */
+    public function supports(string $type): bool
+    {
+        return $type === static::getType();
+    }
 
     /**
      * 获取标题
      * @return string
      */
-    abstract protected function getTitle(): string;
+    protected function getTitle(): string
+    {
+        return $this->template->name;
+    }
 }
