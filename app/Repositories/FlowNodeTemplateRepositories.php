@@ -30,7 +30,7 @@ class FlowNodeTemplateRepositories extends BaseRepository
         return $this->query()->create([
             'parent_id'        => Arr::get($inputs, 'parent_id'),
             'depth'            => Arr::get($inputs, 'depth'),
-            'priority'         => Arr::get($inputs, 'priority'),
+            'priority'         => Arr::get($inputs, 'priority', 0),
             'name'             => Arr::get($inputs, 'name'),
             'description'      => Arr::get($inputs, 'description'),
             'type'             => Arr::get($inputs, 'type'),
@@ -56,7 +56,7 @@ class FlowNodeTemplateRepositories extends BaseRepository
         return $this->query()->where('id', $id)->update([
             'parent_id'        => Arr::get($inputs, 'parent_id'),
             'depth'            => Arr::get($inputs, 'depth'),
-            'priority'         => Arr::get($inputs, 'priority'),
+            'priority'         => Arr::get($inputs, 'priority', 0),
             'name'             => Arr::get($inputs, 'name'),
             'description'      => Arr::get($inputs, 'description'),
             'type'             => Arr::get($inputs, 'type'),
