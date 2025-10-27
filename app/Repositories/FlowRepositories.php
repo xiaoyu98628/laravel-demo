@@ -28,21 +28,21 @@ class FlowRepositories extends BaseRepository
         }
 
         return $this->query()->create([
-            'title'                       => Arr::get($inputs, 'title'),
-            'type'                        => Arr::get($inputs, 'type'),
-            'code'                        => Arr::get($inputs, 'code'),
-            'parent_flow_id'              => Arr::get($inputs, 'parent_flow_id'),
-            'parent_node_id'              => Arr::get($inputs, 'parent_node_id'),
-            'level'                       => Arr::get($inputs, 'level'),
-            'business_id'                 => Arr::get($inputs, 'business_id'),
-            'business_snapshot'           => Arr::get($inputs, 'business_snapshot'),
-            'status'                      => Arr::get($inputs, 'status'),
-            'flow_node_template_snapshot' => Arr::get($inputs, 'flow_node_template_snapshot'),
-            'callback'                    => empty($inputs['callback']) ? null : $inputs['callback'],
-            'applicant_type'              => Arr::get($inputs, 'applicant_type'),
-            'applicant_id'                => Arr::get($inputs, 'applicant_id'),
-            'extend'                      => Arr::get($inputs, 'extend'),
-            'flow_template_id'            => Arr::get($inputs, 'flow_template_id'),
+            'title'             => Arr::get($inputs, 'title'),
+            'type'              => Arr::get($inputs, 'type'),
+            'code'              => Arr::get($inputs, 'code'),
+            'parent_flow_id'    => Arr::get($inputs, 'parent_flow_id'),
+            'parent_node_id'    => Arr::get($inputs, 'parent_node_id'),
+            'level'             => Arr::get($inputs, 'level'),
+            'business_id'       => Arr::get($inputs, 'business_id'),
+            'business_snapshot' => Arr::get($inputs, 'business_snapshot'),
+            'status'            => Arr::get($inputs, 'status'),
+            'template_snapshot' => Arr::get($inputs, 'template_snapshot'),
+            'callback'          => empty($inputs['callback']) ? null : $inputs['callback'],
+            'applicant_type'    => Arr::get($inputs, 'applicant_type'),
+            'applicant_id'      => Arr::get($inputs, 'applicant_id'),
+            'extend'            => Arr::get($inputs, 'extend'),
+            'flow_template_id'  => Arr::get($inputs, 'flow_template_id'),
         ]);
     }
 
@@ -60,9 +60,9 @@ class FlowRepositories extends BaseRepository
         }
 
         return $this->query()->where('id', $id)->update([
-            'status'                      => Arr::get($inputs, 'status'),
-            'flow_node_template_snapshot' => Arr::get($inputs, 'flow_node_template_snapshot'),
-            'extend'                      => Arr::get($inputs, 'extend'),
+            'status'            => Arr::get($inputs, 'status'),
+            'template_snapshot' => Arr::get($inputs, 'template_snapshot'),
+            'extend'            => Arr::get($inputs, 'extend'),
         ]);
     }
 }
