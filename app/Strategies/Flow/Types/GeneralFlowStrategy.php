@@ -13,15 +13,6 @@ use App\Constants\Enums\Flow\Type;
 class GeneralFlowStrategy extends AbstractFlowTypeStrategy
 {
     /**
-     * @param  array  $inputs
-     * @return string
-     */
-    public function getTitle(array $inputs): string
-    {
-        return $this->template->name;
-    }
-
-    /**
      * 获取类型
      * @return string
      */
