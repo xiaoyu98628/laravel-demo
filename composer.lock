@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6c34c4192c5a8762a68026887132d530",
+    "content-hash": "ccdde548744202c90512bf751ce6ddb5",
     "packages": [
         {
             "name": "brick/math",
@@ -68,11 +68,11 @@
         },
         {
             "name": "buqiu/service-common",
-            "version": "v1.2.0.x-dev",
+            "version": "v1.3.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "git@gitee.com:buqiu-community/service-common.git",
-                "reference": "ead73f51abaff1be42b2d9319a0ada7a12b225ab"
+                "reference": "8abfe963682a2b36a5ccccfa25857a1a93f476fc"
             },
             "require": {
                 "ext-curl": "*",
@@ -110,7 +110,7 @@
                 "common",
                 "service"
             ],
-            "time": "2025-08-11T03:25:43+00:00"
+            "time": "2025-11-07T03:41:16+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -8672,7 +8672,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.2"
+        "php": "^8.2",
+        "ext-pdo": "*"
     },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"
